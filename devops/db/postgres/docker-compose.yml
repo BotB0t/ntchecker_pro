@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  db:
+    image: ntchecker-postgresql
+    build:
+      context: ""
+      dockerfile: Dockerfile
+    image: ntchecker-postgresql
+    container_name: ntchecker-postgresql
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: docker

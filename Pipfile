@@ -1,0 +1,27 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+isort = "*"
+flake8 = "*"
+django-extensions = "*"
+django-coverage-plugin = "*"
+pytest-django = "*"
+autopep8 = "*"
+
+[packages]
+django = "*"
+django-environ = "*"
+django-cors-headers = "*"
+django-filter = "*"
+psycopg2-binary = "*"
+django-prometheus = "*"
+djangorestframework = "*"
+
+[requires]
+python_version = "3.7"
+
+[scripts]
+linter = "flake8 ."
