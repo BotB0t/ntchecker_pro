@@ -20,7 +20,7 @@ ROOT_DIR = environ.Path(__file__) - 3
 APPS_DIR = ROOT_DIR.path('validator-notification')
 
 READ_DOT_ENV_FILE = env.bool('DJANGO_READ_DOT_ENV_FILE', default=False)
-VAL_NOT_ENV = env.str('VAL_NOT_ENV', default='local')
+VAL_NOT_ENV = env.str('NT_ENV', default='local')
 
 if READ_DOT_ENV_FILE:
     print(f'\U0001F40D *** Loading environment: {VAL_NOT_ENV} *** \U0001F40D')
