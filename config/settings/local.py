@@ -1,3 +1,4 @@
+from . import database
 from .base import *
 
 # GENERAL
@@ -34,14 +35,18 @@ TEMPLATES = [
 INSTALLED_APPS += ['django_extensions', 'django.contrib.staticfiles']
 
 # DATABASES
+# https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 # ------------------------------------------------------------------------------
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': POSTGRES_DB,
-        'USER': POSTGRES_USER,
-        'PASSWORD': POSTGRES_PASSWORD,
-        'HOST': POSTGRES_HOST,
-        'PORT': POSTGRES_PORT
-    }
+    'default': database.config()
 }
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': POSTGRES_DB,
+#         'USER': POSTGRES_USER,
+#         'PASSWORD': POSTGRES_PASSWORD,
+#         'HOST': POSTGRES_HOST,
+#         'PORT': POSTGRES_PORT
+#     }
+# }
