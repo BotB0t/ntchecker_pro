@@ -1,0 +1,442 @@
+{
+  "kind": "List",
+  "apiVersion": "v1",
+  "metadata": {
+    "name": "django-psql",
+    "annotations": {
+      "openshift.io/display-name": "Django + PostgreSQL",
+      "description": "To use my ntchecker project",
+      "tags": "quickstart,python,django",
+      "iconClass": "icon-python",
+      "openshift.io/provider-display-name": "Red Hat, Inc.",
+      "openshift.io/documentation-url": "https://github.com/sclorg/ntchecker_pro",
+      "openshift.io/support-url": "https://access.redhat.com",
+      "template.openshift.io/bindable": "false"
+    }
+  },
+  "message": "The following service(s) have been created in your project: ${NAME}, ${DATABASE_SERVICE_NAME}.\n\nFor more information about using this template, including OpenShift considerations, see https://github.com/sclorg/django-ex/blob/master/README.md.",
+  "labels": {
+    "template": "django-psql",
+    "app": "django-psql"
+  },
+  "items": [
+    {
+      "apiVersion": "v1",
+      "kind": "Secret",
+      "metadata": {
+        "labels": {
+          "app": "django-psql",
+          "template": "django-psql"
+        },
+        "name": "django-psql"
+      },
+      "stringData": {
+        "database-password": "ntchecker",
+        "database-user": "ntchecker",
+        "django-secret-key": "v4l1d4t0R-N0t1f1cat1OnS-s3Cr3t-K3y"
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Service",
+      "metadata": {
+        "annotations": {
+          "description": "Exposes and load balances the application pods",
+          "service.alpha.openshift.io/dependencies": "[{\"name\": \"ntchecker-psql\", \"kind\": \"Service\"}]"
+        },
+        "labels": {
+          "app": "django-psql",
+          "template": "django-psql"
+        },
+        "name": "django-psql"
+      },
+      "spec": {
+        "ports": [
+          {
+            "name": "web",
+            "port": 8080,
+            "targetPort": 8080
+          }
+        ],
+        "selector": {
+          "name": "django-psql"
+        }
+      }
+    },
+    {
+      "apiVersion": "route.openshift.io/v1",
+      "kind": "Route",
+      "metadata": {
+        "labels": {
+          "app": "django-psql",
+          "template": "django-psql"
+        },
+        "name": "django-psql"
+      },
+      "spec": {
+        "host": "",
+        "to": {
+          "kind": "Service",
+          "name": "django-psql"
+        }
+      }
+    },
+    {
+      "apiVersion": "image.openshift.io/v1",
+      "kind": "ImageStream",
+      "metadata": {
+        "annotations": {
+          "description": "Keeps track of changes in the application image"
+        },
+        "labels": {
+          "app": "django-psql",
+          "template": "django-psql"
+        },
+        "name": "django-psql"
+      }
+    },
+    {
+      "apiVersion": "build.openshift.io/v1",
+      "kind": "BuildConfig",
+      "metadata": {
+        "annotations": {
+          "description": "Defines how to build the application",
+          "template.alpha.openshift.io/wait-for-ready": "true"
+        },
+        "labels": {
+          "app": "django-psql",
+          "template": "django-psql"
+        },
+        "name": "django-psql"
+      },
+      "spec": {
+        "output": {
+          "to": {
+            "kind": "ImageStreamTag",
+            "name": "django-psql:latest"
+          }
+        },
+        "postCommit": {
+          "script": "./manage.py test"
+        },
+        "source": {
+          "contextDir": "",
+          "git": {
+            "ref": "itg",
+            "uri": "https://github.com/BotB0t/ntchecker_pro.git"
+          },
+          "type": "Git"
+        },
+        "strategy": {
+          "sourceStrategy": {
+            "env": [
+              {
+                "name": "PIP_INDEX_URL",
+                "value": ""
+              }
+            ],
+            "from": {
+              "kind": "ImageStreamTag",
+              "name": "python:3.6",
+              "namespace": "openshift"
+            }
+          },
+          "type": "Source"
+        },
+        "triggers": [
+          {
+            "type": "ImageChange"
+          },
+          {
+            "type": "ConfigChange"
+          },
+          {
+            "github": {
+              "secret": "vhFmx7m8y1AOeVLFGq0g0jxK0jRlIPRBLFyhdKlD"
+            },
+            "type": "GitHub"
+          }
+        ]
+      }
+    },
+    {
+      "apiVersion": "apps.openshift.io/v1",
+      "kind": "DeploymentConfig",
+      "metadata": {
+        "annotations": {
+          "description": "Defines how to deploy the application server",
+          "template.alpha.openshift.io/wait-for-ready": "true"
+        },
+        "labels": {
+          "app": "django-psql",
+          "template": "django-psql"
+        },
+        "name": "django-psql"
+      },
+      "spec": {
+        "replicas": 1,
+        "selector": {
+          "name": "django-psql"
+        },
+        "strategy": {
+          "type": "Recreate"
+        },
+        "template": {
+          "metadata": {
+            "labels": {
+              "name": "django-psql"
+            },
+            "name": "django-psql"
+          },
+          "spec": {
+            "containers": [
+              {
+                "env": [
+                  {
+                    "name": "DATABASE_SERVICE_NAME",
+                    "value": "ntchecker-psql"
+                  },
+                  {
+                    "name": "DATABASE_ENGINE",
+                    "value": "postgresql"
+                  },
+                  {
+                    "name": "DATABASE_NAME",
+                    "value": "ntchecker"
+                  },
+                  {
+                    "name": "POSTGRESQL_USER",
+                    "valueFrom": {
+                      "secretKeyRef": {
+                        "key": "database-user",
+                        "name": "django-psql"
+                      }
+                    }
+                  },
+                  {
+                    "name": "POSTGRESQL_PASSWORD",
+                    "valueFrom": {
+                      "secretKeyRef": {
+                        "key": "database-password",
+                        "name": "django-psql"
+                      }
+                    }
+                  },
+                  {
+                    "name": "APP_CONFIG",
+                    "value": ""
+                  },
+                  {
+                    "name": "DJANGO_SECRET_KEY",
+                    "valueFrom": {
+                      "secretKeyRef": {
+                        "key": "django-secret-key",
+                        "name": "django-psql"
+                      }
+                    }
+                  }
+                ],
+                "image": " ",
+                "livenessProbe": {
+                  "httpGet": {
+                    "path": "/health",
+                    "port": 8080
+                  },
+                  "initialDelaySeconds": 30,
+                  "timeoutSeconds": 3
+                },
+                "name": "django-psql",
+                "ports": [
+                  {
+                    "containerPort": 8080
+                  }
+                ],
+                "readinessProbe": {
+                  "httpGet": {
+                    "path": "/health",
+                    "port": 8080
+                  },
+                  "initialDelaySeconds": 3,
+                  "timeoutSeconds": 3
+                },
+                "resources": {
+                  "limits": {
+                    "memory": "512Mi"
+                  }
+                }
+              }
+            ]
+          }
+        },
+        "triggers": [
+          {
+            "imageChangeParams": {
+              "automatic": true,
+              "containerNames": [
+                "django-psql"
+              ],
+              "from": {
+                "kind": "ImageStreamTag",
+                "name": "django-psql:latest"
+              }
+            },
+            "type": "ImageChange"
+          },
+          {
+            "type": "ConfigChange"
+          }
+        ]
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Service",
+      "metadata": {
+        "annotations": {
+          "description": "Exposes the database server"
+        },
+        "labels": {
+          "app": "django-psql",
+          "template": "django-psql"
+        },
+        "name": "ntchecker-psql"
+      },
+      "spec": {
+        "ports": [
+          {
+            "name": "postgresql",
+            "port": 5432,
+            "targetPort": 5432
+          }
+        ],
+        "selector": {
+          "name": "ntchecker-psql"
+        }
+      }
+    },
+    {
+      "apiVersion": "apps.openshift.io/v1",
+      "kind": "DeploymentConfig",
+      "metadata": {
+        "annotations": {
+          "description": "Defines how to deploy the database",
+          "template.alpha.openshift.io/wait-for-ready": "true"
+        },
+        "labels": {
+          "app": "django-psql",
+          "template": "django-psql"
+        },
+        "name": "ntchecker-psql"
+      },
+      "spec": {
+        "replicas": 1,
+        "selector": {
+          "name": "ntchecker-psql"
+        },
+        "strategy": {
+          "type": "Recreate"
+        },
+        "template": {
+          "metadata": {
+            "labels": {
+              "name": "ntchecker-psql"
+            },
+            "name": "ntchecker-psql"
+          },
+          "spec": {
+            "containers": [
+              {
+                "env": [
+                  {
+                    "name": "POSTGRESQL_USER",
+                    "valueFrom": {
+                      "secretKeyRef": {
+                        "key": "database-user",
+                        "name": "django-psql"
+                      }
+                    }
+                  },
+                  {
+                    "name": "POSTGRESQL_PASSWORD",
+                    "valueFrom": {
+                      "secretKeyRef": {
+                        "key": "database-password",
+                        "name": "django-psql"
+                      }
+                    }
+                  },
+                  {
+                    "name": "POSTGRESQL_DATABASE",
+                    "value": "ntchecker"
+                  }
+                ],
+                "image": " ",
+                "livenessProbe": {
+                  "exec": {
+                    "command": [
+                      "/usr/libexec/check-container",
+                      "--live"
+                    ]
+                  },
+                  "initialDelaySeconds": 120,
+                  "timeoutSeconds": 10
+                },
+                "name": "postgresql",
+                "ports": [
+                  {
+                    "containerPort": 5432
+                  }
+                ],
+                "readinessProbe": {
+                  "exec": {
+                    "command": [
+                      "/usr/libexec/check-container"
+                    ]
+                  },
+                  "initialDelaySeconds": 5,
+                  "timeoutSeconds": 1
+                },
+                "resources": {
+                  "limits": {
+                    "memory": "512Mi"
+                  }
+                },
+                "volumeMounts": [
+                  {
+                    "mountPath": "/var/lib/pgsql/data",
+                    "name": "data"
+                  }
+                ]
+              }
+            ],
+            "volumes": [
+              {
+                "emptyDir": {},
+                "name": "data"
+              }
+            ]
+          }
+        },
+        "triggers": [
+          {
+            "imageChangeParams": {
+              "automatic": true,
+              "containerNames": [
+                "postgresql"
+              ],
+              "from": {
+                "kind": "ImageStreamTag",
+                "name": "postgresql:10",
+                "namespace": "openshift"
+              }
+            },
+            "type": "ImageChange"
+          },
+          {
+            "type": "ConfigChange"
+          }
+        ]
+      }
+    }
+  ]
+}
