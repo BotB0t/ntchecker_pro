@@ -40,6 +40,7 @@ INSTALLED_APPS += ['django_extensions', 'django.contrib.staticfiles']
 # DATABASES = {
 #     'default': database.config()
 # }
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
