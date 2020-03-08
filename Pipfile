@@ -19,6 +19,10 @@ django-filter = "*"
 psycopg2-binary = "*"
 django-prometheus = "*"
 djangorestframework = "*"
+pillow = "*"
+pyjwt = "*"
+django-rest-swagger = "*"
+django-import-export = "*"
 
 [requires]
 python_version = "3.7"
