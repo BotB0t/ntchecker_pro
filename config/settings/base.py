@@ -9,6 +9,8 @@ https://docs.djangoproject.com/en/2.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.2/ref/settings/
 """
+from ._secrets import *
+from ._vars import *
 import environ
 import os
 import sys
@@ -30,8 +32,6 @@ if READ_DOT_ENV_FILE:
         else:
             print(f'*** \U0001F525 Warning: missing env file: {env_file_path}\n', file=sys.stderr)
 
-from ._vars import *
-from ._secrets import *
 
 TIME_ZONE = 'Europe/Madrid'
 LANGUAGE_CODE = 'es-es'
@@ -65,8 +65,11 @@ ALLOWED_HOSTS = []
 
 
 DJANGO_APPS = [
+    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
     'rest_framework'
 ]
 THIRD_PARTY_APPS = []
