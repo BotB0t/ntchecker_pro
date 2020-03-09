@@ -1,4 +1,4 @@
-# validator-notification
+# validator_notification
 Website to validate the reception of notifications
 
 

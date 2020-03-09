@@ -1,0 +1,51 @@
+html{
+	text-align: center;
+}
+
+body{
+	display: inline-block;
+	text-align: left;
+	width: 50%
+    margin: 0px auto;
+	margin: 0;
+	padding: 0;
+	font-size: 14px;
+	font-family: "Roboto","Lucida Grande","DejaVu Sans","Bitstream Vera Sans",Verdana,Arial,sans-serif;
+}
+
+#container {
+	padding: 15px 20px;
+	width: 100%;
+    height: auto;
+    justify-content: center;
+}
+
+#header1 {
+    margin-top: 0;
+    padding: 15px 20px;
+    width: 100%;
+    height: auto;
+    justify-content: center;
+}
+
+#header1 h1, #header1 a, #header1 a:visited, #header1 a:active, #header1 a:hover {
+	justify-content: center;
+    font-size: 25pt;
+    text-decoration: none;
+    line-height: 1.2;
+    font-weight: bold;
+}
+
+.post-form input {
+	width: 100%;
+}	
+
+@media screen and (max-width: 600px){
+	body{
+		font-size: 16px;
+	}	
+
+	.post-form input {
+    	width: 100%;
+	}	
+}

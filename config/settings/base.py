@@ -17,7 +17,7 @@ import sys
 
 env = environ.Env()
 ROOT_DIR = environ.Path(__file__) - 3
-APPS_DIR = ROOT_DIR.path('validator-notification')
+APPS_DIR = ROOT_DIR.path('validator_notification')
 
 READ_DOT_ENV_FILE = env.bool('DJANGO_READ_DOT_ENV_FILE', default=False)
 VAL_NOT_ENV = env.str('NT_ENV', default='local')
@@ -73,7 +73,9 @@ DJANGO_APPS = [
     'rest_framework'
 ]
 THIRD_PARTY_APPS = []
-LOCAL_APPS = []
+LOCAL_APPS = [
+    'validator_notification.apps.nt'
+]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 

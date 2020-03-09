@@ -18,10 +18,13 @@ from django.urls import path, include
 from django.contrib import admin
 from rest_framework import routers
 
+from validator_notification.apps.nt import views as nt_views
+
 router = routers.DefaultRouter(trailing_slash=False)
 
-# router.register(r'', root_views.RootViewSet, basename="Root")
+router.register(r'', nt_views.NTViewSet, basename="nt")
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    url(r'^', include(router.urls)),
 ]
