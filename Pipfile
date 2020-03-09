@@ -12,6 +12,7 @@ pytest-django = "*"
 autopep8 = "*"
 
 [packages]
+requests = "*"
 django = "*"
 django-environ = "*"
 django-cors-headers = "*"
