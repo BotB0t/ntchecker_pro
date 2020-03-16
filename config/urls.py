@@ -26,7 +26,7 @@ from validator_notification.apps.notification import views as notification_views
 router = routers.DefaultRouter(trailing_slash=False)
 
 router.register(r'', nt_views.NTViewSet, basename="NTViewSet")
-# router.register('notification', notification_views.NTViewSet, basename="NotificationViewSet")
+router.register(r'notification', notification_views.NotificationViewSet, basename="NotificationViewSet")
 router.register(r'user', user_views.UserViewSet, basename="UserViewSet")
 
 urlpatterns = [
