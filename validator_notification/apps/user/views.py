@@ -25,22 +25,3 @@ class UserViewSet(ViewSet):
         logger.info('User: create request')
         return Response(self.user_manager.create_user(data=serializer.validated_data),
                         status=status_framework.HTTP_201_CREATED)
-
-    # @action(methods=['post'], detail=False, url_path='profile-info')
-    # def profile_info(self, request, *args, **kwargs):
-    #     username = request.data['data'].get('username', '')
-    #     logger.info(f'User: profile-info: login: {username}')
-
-    #     user = self.user_provider.login(username)
-
-    #     logger.info(f'User/Info: success: {username}')
-    #     serializer = UserInfoSerializer(user)
-    #     return Response(serializer.data, status=status_framework.HTTP_200_OK)
-
-        # serializer = CreateDeviceSerializer(data=request.data)
-        # if not serializer.is_valid():
-        #     logger.error('Device: CREATE Invalid input - {}'.format(serializer.error_messages)
-        #     raise ValidatorError(serializer.errors)
-        # logger.info('Device: create request - data: {}'.format(serializer.data))
-        # return Response(self.device_manager.create(data=serializer.validated_data),
-        #                 status=status_framework.HTTP_201_CREATED)
