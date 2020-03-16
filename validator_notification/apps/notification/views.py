@@ -4,11 +4,11 @@ from django.http import HttpResponse, JsonResponse
 from rest_framework import status as status_framework
 from rest_framework.viewsets import ViewSet
 from rest_framework.decorators import action
+from rest_framework.response import Response
 from rest_framework.parsers import JSONParser
 
-
-from validator_notification.apps.notification.general_manager import GeneralNotificationManager
-from validator_notification.apps.notification.serializers import GeneralNotificationSerializer
+from validator_notification.apps.notification.serializers import GeneralNotificationSerializer, \
+    IndividualNotificationSerializer
 
 from .models import GeneralNotification
 
@@ -17,7 +17,7 @@ logger = logging.getLogger(__name__)
 
 class NotificationViewSet(ViewSet):
 
-    general_manager = GeneralNotificationManager()
+    # general_manager = GeneralNotificationManager()
 
     '''
     GENERAL notifications operations
@@ -25,7 +25,7 @@ class NotificationViewSet(ViewSet):
 
     def retrieve(self, request, pk):
         try:
-            general_notification = GeneralNotification.objects.get(pk=pk)
+            general_notification = GeneralNotification.objects.get(item_id=pk)
         except GeneralNotification.DoesNotExist:
             return HttpResponse(status=404)
 

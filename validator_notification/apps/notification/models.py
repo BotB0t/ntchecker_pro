@@ -1,7 +1,5 @@
 from django.db import models
 
-# Create your models here.
-
 
 class GeneralNotification(models.Model):
     item_id = models.IntegerField(unique=True)
@@ -14,3 +12,6 @@ class GeneralNotification(models.Model):
 
     def __str__(self):
         return self.title
+
+    class Meta:
+        ordering = ['created_at']
