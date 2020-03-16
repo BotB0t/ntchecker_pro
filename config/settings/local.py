@@ -34,12 +34,43 @@ TEMPLATES = [
 
 INSTALLED_APPS += ['django_extensions', 'django.contrib.staticfiles']
 
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '%(levelname)s %(asctime)s %(name)s.%(funcName)s '
+                      '%(process)d %(thread)d: %(message)s'
+        },
+    },
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'verbose',
+        },
+    },
+    'loggers': {
+        '': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+        'external_service_client': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+    },
+}
+
+
 # DATABASES
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 # ------------------------------------------------------------------------------
 DATABASES = {
     'default': database.config()
 }
+
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.postgresql_psycopg2',

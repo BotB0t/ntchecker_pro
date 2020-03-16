@@ -5,7 +5,7 @@
 		"name": "ntchecker-itg",
 		"annotations": {}
 	},
-	"message": "The following service(s) have been created in your project: ${NAME}, ${DATABASE_SERVICE_NAME}.\n\nFor more information about using this template, including OpenShift considerations, see https://github.com/sclorg/django-ex/blob/master/README.md.",
+	"message": "The following service(s) have been created in your project: ${NAME}, ${DATABASE_SERVICE_NAME}.",
 	"labels": {
 		"template": "ntchecker-itg",
 		"app": "ntchecker-itg"
@@ -18,8 +18,9 @@
 				"name": "${NAME}"
 			},
 			"stringData": {
-				"database-user": "${DATABASE_USER}",
-				"database-password": "${DATABASE_PASSWORD}",
+				"database-name": "${POSTGRES_DB}",
+				"database-user": "${POSTGRES_USER}",
+				"database-password": "${POSTGRES_PASSWORD}",
 				"django-secret-key": "${DJANGO_SECRET_KEY}"
 			}
 		},
@@ -99,8 +100,8 @@
 						},
 						"env": [
 							{
-								"name": "PIP_INDEX_URL",
-								"value": "${PIP_INDEX_URL}"
+								"name": "NT_ENV",
+								"value": "${NT_ENV}"
 							}
 						]
 					}
@@ -209,11 +210,11 @@
 										"value": "${DATABASE_ENGINE}"
 									},
 									{
-										"name": "DATABASE_NAME",
-										"value": "${DATABASE_NAME}"
+										"name": "POSTGRES_DB",
+										"value": "${POSTGRES_DB}"
 									},
 									{
-										"name": "DATABASE_USER",
+										"name": "POSTGRES_USER",
 										"valueFrom": {
 											"secretKeyRef": {
 												"name": "${NAME}",
@@ -222,7 +223,7 @@
 										}
 									},
 									{
-										"name": "DATABASE_PASSWORD",
+										"name": "POSTGRES_PASSWORD",
 										"valueFrom": {
 											"secretKeyRef": {
 												"name": "${NAME}",
@@ -358,7 +359,7 @@
 									},
 									{
 										"name": "POSTGRESQL_DATABASE",
-										"value": "${DATABASE_NAME}"
+										"value": "${POSTGRES_DB}"
 									}
 								],
 								"volumeMounts": [
@@ -486,19 +487,19 @@
 			"value": "postgresql"
 		},
 		{
-			"name": "DATABASE_NAME",
+			"name": "POSTGRES_DB",
 			"displayName": "Database Name",
 			"required": true,
 			"value": "ntchecker"
 		},
 		{
-			"name": "DATABASE_USER",
+			"name": "POSTGRES_USER",
 			"displayName": "Database Username",
 			"required": true,
 			"value": "ntchecker"
 		},
 		{
-			"name": "DATABASE_PASSWORD",
+			"name": "POSTGRES_PASSWORD",
 			"displayName": "Database User Password",
 			"generate": "expression",
 			"from": "ntchecker"
@@ -516,10 +517,10 @@
 			"from": "v4l1d4t0R-N0t1f1cat1OnS-s3Cr3t-K3y"
 		},
 		{
-			"name": "PIP_INDEX_URL",
-			"displayName": "Custom PyPi Index URL",
-			"description": "The custom PyPi index URL",
-			"value": ""
+			"name": "NT_ENV",
+			"displayName": "Get variables environment",
+			"description": "Get variables environment",
+			"value": "itg"
 		}
 	]
 }

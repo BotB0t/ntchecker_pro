@@ -17,10 +17,10 @@ import sys
 
 env = environ.Env()
 ROOT_DIR = environ.Path(__file__) - 3
-APPS_DIR = ROOT_DIR.path('validator-notification')
+APPS_DIR = ROOT_DIR.path('validator_notification')
 
 READ_DOT_ENV_FILE = env.bool('DJANGO_READ_DOT_ENV_FILE', default=False)
-VAL_NOT_ENV = env.str('VAL_NOT_ENV', default='local')
+VAL_NOT_ENV = env.str('NT_ENV', default='local')
 
 if READ_DOT_ENV_FILE:
     print(f'\U0001F40D *** Loading environment: {VAL_NOT_ENV} *** \U0001F40D')
@@ -70,10 +70,16 @@ DJANGO_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'corsheaders',
     'rest_framework'
 ]
 THIRD_PARTY_APPS = []
-LOCAL_APPS = []
+LOCAL_APPS = [
+    'validator_notification.apps.device',
+    'validator_notification.apps.nt',
+    'validator_notification.apps.user',
+    'validator_notification.apps.notification',
+]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
@@ -82,6 +88,8 @@ MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'corsheaders.middleware.CorsPostCsrfMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
