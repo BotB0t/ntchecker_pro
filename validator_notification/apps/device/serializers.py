@@ -18,3 +18,8 @@ class DeviceSerializer(serializers.ModelSerializer):
 class GetByUserIDDeviceSerializer(serializers.Serializer):
     username = serializers.CharField(required=True)
     id = serializers.IntegerField(required=False)
+
+
+class UpdateDeviceSerializer(serializers.Serializer):
+    username = serializers.CharField(required=True)
+    id = serializers.IntegerField(required=False)
