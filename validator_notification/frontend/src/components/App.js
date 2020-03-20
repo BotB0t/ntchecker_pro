@@ -1,49 +1,20 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { render } from "react-dom";
 
-class App extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            data: [],
-            loaded: false,
-            placeholder: "Loading"
-        };
-    }
-    s
-    componentDidMount() {
-        fetch("users")
-            .then(response => {
-                if (response.status > 400) {
-                    return this.setState(() => {
-                        return { placeholder: "Something went wrong!" };
-                    });
-                }
-                return response.json();
-            })
-            .then(data => {
-                this.setState(() => {
-                    return {
-                        data,
-                        loaded: true
-                    };
-                });
-            });
-    }
+import Header from "./layout/Header";
+import Dashboard from "./users/Dashboard";
 
-    render() {
-        return (
-            <ul>
-                {this.state.data.map(contact => {
-                    return (
-                        <li key={contact.id}>
-                            {contact.name} - {contact.email}
-                        </li>
-                    );
-                })}
-            </ul>
-        );
-    }
+class App extends Component {
+  render() {
+    return (
+      <Fragment>
+        <Header />
+        <div className="container">
+          <Dashboard />
+        </div>
+      </Fragment>
+    );
+  }
 }
 
 export default App;
