@@ -79,6 +79,7 @@ LOCAL_APPS = [
     'validator_notification.apps.nt',
     'validator_notification.apps.user',
     'validator_notification.apps.notification',
+    'validator_notification.frontend'
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS

@@ -18,6 +18,7 @@ from django.urls import path, include
 from django.contrib import admin
 from rest_framework import routers
 
+# from validator_notification.frontend import views as frontend_views
 from validator_notification.apps.nt import views as nt_views
 from validator_notification.apps.user import views as user_views
 from validator_notification.apps.device import views as device_views
@@ -26,12 +27,13 @@ from validator_notification.apps.notification import views as notification_views
 
 router = routers.DefaultRouter(trailing_slash=False)
 
-router.register(r'', nt_views.NTViewSet, basename="NTViewSet")
+# router.register(r'', frontend_views.index, basename="FrontendViewSet")
 router.register(r'notification', notification_views.NotificationViewSet, basename="NotificationViewSet")
 router.register(r'device', device_views.DeviceViewSet, basename="DeviceViewSet")
 router.register(r'user', user_views.UserViewSet, basename="UserViewSet")
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', include('validator_notification.frontend.urls')),
     url(r'^', include(router.urls)),
 ]
