@@ -6,6 +6,6 @@ class platform(BaseEnum):
     IOS = 'iOS'
 
 
-class ownership(BaseEnum):
+class owner(BaseEnum):
     PERSONAL = 'Personal'
     EMPRESA = 'Empresa'

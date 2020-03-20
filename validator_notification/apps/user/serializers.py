@@ -1,22 +1,22 @@
 from rest_framework import serializers
 
+from validator_notification.apps.user.models import User
 from validator_notification.utils.helpers.string_helper import check_email
 
 
-class UserProfileInfoSerializer(serializers.Serializer):
-    username = serializers.CharField(source='username')
-    devices = serializers.ListField(child=serializers.CharField(), default=[])
-
-
-class CreateUserSerializer(serializers.Serializer):
+class UserSerializer(serializers.ModelSerializer):
     username = serializers.CharField(required=True, allow_blank=False)
+    email = serializers.CharField(required=True, allow_blank=False)
+
+    class Meta:
+        model = User
+        fields = '__all__'
 
     def validate(self, data):
-        if self.check_username_and_not_mail(data):
+        if not self.check_email(data):
             raise serializers.ValidationError({'Username not valid'})
-
         return data
 
     @staticmethod
-    def check_username_and_not_mail(data):
-        return check_email(data.get('username', ''))
+    def check_email(data):
+        return check_email(data.get('email', ''))
