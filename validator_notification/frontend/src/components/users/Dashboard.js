@@ -1,12 +1,12 @@
 import React, { Fragment } from "react";
 import Form from "./Form";
-import Users from "./Users";
+import User from "./User";
 
 export default function Dashboard() {
   return (
     <Fragment>
       <Form />
-      <Users />
+      <User />
     </Fragment>
   );
 }
