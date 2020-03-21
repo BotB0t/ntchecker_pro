@@ -1,14 +1,15 @@
 import axios from "axios";
 
-import { GET_USER } from "./types";
+import { GET_USERS } from "./types";
 
-// GET USER
-export const getUser = () => {
+// GET USERS
+export const getUsers = () => dispatch => {
   axios
     .get("/user")
     .then(res => {
+      console.log(res.data);
       dispatch({
-        type: GET_USER,
+        type: GET_USERS,
         payload: res.data
       });
     })

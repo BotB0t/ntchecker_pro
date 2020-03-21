@@ -1,15 +1,15 @@
-import { GET_USER } from "../actions/types.js";
+import { GET_USERS } from "../actions/types.js";
 
 const initialState = {
-  user: []
+  users: []
 };
 
 export default function(state = initialState, action) {
   switch (action.type) {
-    case GET_USER:
+    case GET_USERS:
       return {
         ...state,
-        user: action.payload
+        users: action.payload
       };
     default:
       return state;
