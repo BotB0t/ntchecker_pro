@@ -1,25 +1,13 @@
 from rest_framework import serializers
 
-from .models import Device
-
-
-class CreateDeviceSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Device
-        exclude = ['id']
+from validator_notification.apps.device.models import Device
 
 
 class DeviceSerializer(serializers.ModelSerializer):
+    name = serializers.CharField(required=True, allow_blank=False)
+    platform = serializers.CharField(required=True, allow_blank=False)
+    owner = serializers.CharField(required=True, allow_blank=False)
+
     class Meta:
         model = Device
         fields = '__all__'
-
-
-class GetByUserIDDeviceSerializer(serializers.Serializer):
-    username = serializers.CharField(required=True)
-    id = serializers.IntegerField(required=False)
-
-
-class UpdateDeviceSerializer(serializers.Serializer):
-    username = serializers.CharField(required=True)
-    id = serializers.IntegerField(required=False)

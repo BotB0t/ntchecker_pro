@@ -1,10 +1,11 @@
 from django.db import models
-
-from validator_notification.apps.user.models import User
-from .utils.enumerations import platform, ownership
+from django.contrib.auth.models import User as DjangoUser
+from .utils.enumerations import platform, owner
 
 
 class Device(models.Model):
-    username = models.ForeignKey(User, on_delete=models.CASCADE, db_column='username')
+    name = models.CharField(max_length=50)
     platform = models.CharField(max_length=50, null=False, choices=platform.tuples())
-    ownership = models.CharField(max_length=50, null=False, choices=ownership.tuples())
+    owner = models.CharField(max_length=50, null=False, choices=owner.tuples())
+    created_at = models.DateTimeField(auto_now_add=True)
+    user = models.ForeignKey(DjangoUser, related_name="devices", on_delete=models.CASCADE, null=True)
