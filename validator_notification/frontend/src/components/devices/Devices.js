@@ -24,6 +24,7 @@ export class Devices extends Component {
               <th>NOMBRE</th>
               <th>PLATAFORMA</th>
               <th>PROPIETARIO</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
