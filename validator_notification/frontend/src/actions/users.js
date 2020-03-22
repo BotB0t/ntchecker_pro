@@ -1,7 +1,7 @@
 import axios from "axios";
-import { createMessage } from "./messages";
+import { createMessage, returnErrors } from "./messages";
 
-import { GET_USERS, DELETE_USER, ADD_USER, GET_ERRORS } from "./types";
+import { GET_USERS, DELETE_USER, ADD_USER } from "./types";
 
 // GET USERS
 export const getUsers = () => dispatch => {
@@ -14,7 +14,9 @@ export const getUsers = () => dispatch => {
         payload: res.data
       });
     })
-    .catch(err => console.log(err));
+    .catch(err =>
+      dispatch(returnErrors(err.response.data, err.response.status))
+    );
 };
 
 // DELETE USER
@@ -28,7 +30,9 @@ export const deleteUser = id => dispatch => {
         payload: id
       });
     })
-    .catch(err => console.log(err));
+    .catch(err =>
+      dispatch(returnErrors(err.response.data, err.response.status))
+    );
 };
 
 // ADD USER
@@ -43,14 +47,7 @@ export const addUser = user => dispatch => {
         payload: res.data
       });
     })
-    .catch(err => {
-      const errors = {
-        msg: err.response.data,
-        status: err.response.status
-      };
-      dispatch({
-        type: GET_ERRORS,
-        payload: errors
-      });
-    });
+    .catch(err =>
+      dispatch(returnErrors(err.response.data, err.response.status))
+    );
 };

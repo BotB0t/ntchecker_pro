@@ -71,16 +71,22 @@ DJANGO_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'corsheaders',
-    'rest_framework'
+    'rest_framework',
+    'knox'
 ]
 THIRD_PARTY_APPS = []
 LOCAL_APPS = [
     'validator_notification.apps.device',
     'validator_notification.apps.user',
-    'validator_notification.frontend'
+    'validator_notification.frontend',
+    'validator_notification.apps.accounts'
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': ('knox.auth.TokenAuthentication',)
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
