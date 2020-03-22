@@ -1,17 +1,114 @@
 import axios from "axios";
 import { returnErrors } from "./messages";
 
-import { USER_LOADED, USER_LOADING, AUTH_ERROR } from "./types";
+import {
+  USER_LOADED,
+  USER_LOADING,
+  AUTH_ERROR,
+  LOGIN_FAIL,
+  LOGIN_SUCCESS,
+  LOGOUT_SUCCESS,
+  REGISTER_FAIL,
+  REGISTER_SUCCESS
+} from "./types";
 
 // CHECK TOKEN & LOAD USER
-export const loadUser = () => (dispath, getState) => {
+export const loadUser = () => (dispatch, getState) => {
   // User Loading
-  dispath({ type: USER_LOADING });
+  dispatch({ type: USER_LOADING });
 
+  axios
+    .get("/auth/user", tokenConfig(getState))
+    .then(res => {
+      dispatch({
+        type: USER_LOADED,
+        payload: res.data
+      });
+    })
+    .catch(err => {
+      dispatch(returnErrors(err.response.data, err.response.status));
+      dispatch({
+        type: AUTH_ERROR
+      });
+    });
+};
+
+// LOGIN USER
+export const login = (username, password) => dispatch => {
+  //Headers
+  const config = {
+    headers: {
+      "Content-Type": "application/json"
+    }
+  };
+
+  // Request Body
+  const body = JSON.stringify({ username, password });
+
+  axios
+    .post("/auth/login", body, config)
+    .then(res => {
+      dispatch({
+        type: LOGIN_SUCCESS,
+        payload: res.data
+      });
+    })
+    .catch(err => {
+      dispatch(returnErrors(err.response.data, err.response.status));
+      dispatch({
+        type: LOGIN_FAIL
+      });
+    });
+};
+
+// REGISTER USER
+export const register = ({ username, password, email }) => dispatch => {
+  // Headers
+  const config = {
+    headers: {
+      "Content-Type": "application/json"
+    }
+  };
+
+  // Request Body
+  const body = JSON.stringify({ username, email, password });
+
+  axios
+    .post("/auth/register", body, config)
+    .then(res => {
+      dispatch({
+        type: REGISTER_SUCCESS,
+        payload: res.data
+      });
+    })
+    .catch(err => {
+      dispatch(returnErrors(err.response.data, err.response.status));
+      dispatch({
+        type: REGISTER_FAIL
+      });
+    });
+};
+
+// LOGOUT USER
+export const logout = () => (dispatch, getState) => {
+  axios
+    .post("/auth/logout/", null, tokenConfig(getState))
+    .then(res => {
+      dispatch({
+        type: LOGOUT_SUCCESS
+      });
+    })
+    .catch(err => {
+      dispatch(returnErrors(err.response.data, err.response.status));
+    });
+};
+
+// Setup config with token - helper function
+export const tokenConfig = getState => {
   // Get token from state
   const token = getState().auth.token;
 
-  //Headers
+  // Headers
   const config = {
     headers: {
       "Content-Type": "application/json"
@@ -23,18 +120,5 @@ export const loadUser = () => (dispath, getState) => {
     config.headers["Authorization"] = `Token ${token}`;
   }
 
-  axios
-    .get("/auth/user", config)
-    .then(res => {
-      dispath({
-        type: USER_LOADED,
-        payload: red.data
-      });
-    })
-    .catch(err => {
-      dispath(returnErrors(err.response.data, err.response.status));
-      dispath({
-        type: AUTH_ERROR
-      });
-    });
+  return config;
 };
