@@ -17,7 +17,9 @@ from django.conf.urls import include, url
 from django.urls import path, include
 from django.contrib import admin
 from rest_framework import routers
+from knox import views as knox_views
 
+from validator_notification.apps.accounts import views as accounts_views
 from validator_notification.apps.user import views as user_views
 from validator_notification.apps.device import views as device_views
 
@@ -29,5 +31,10 @@ router.register(r'user', user_views.UserViewSet, basename="UserViewSet")
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('validator_notification.frontend.urls')),
+    path('auth', include('knox.urls')),
+    path('auth/register', accounts_views.Register.as_view()),
+    path('auth/login', accounts_views.Login.as_view()),
+    path('auth/user', accounts_views.User.as_view()),
+    path('auth/logout', knox_views.LogoutView.as_view(), name='knox_logout'),
     url(r'^', include(router.urls)),
 ]
