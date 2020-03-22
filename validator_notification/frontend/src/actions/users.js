@@ -1,12 +1,13 @@
 import axios from "axios";
 import { createMessage, returnErrors } from "./messages";
+import { tokenConfig } from "./auth";
 
 import { GET_USERS, DELETE_USER, ADD_USER } from "./types";
 
 // GET USERS
-export const getUsers = () => dispatch => {
+export const getUsers = () => (dispatch, getState) => {
   axios
-    .get("/user")
+    .get("/user", tokenConfig(getState))
     .then(res => {
       console.log(res.data);
       dispatch({
@@ -20,9 +21,9 @@ export const getUsers = () => dispatch => {
 };
 
 // DELETE USER
-export const deleteUser = id => dispatch => {
+export const deleteUser = id => (dispatch, getState) => {
   axios
-    .delete(`/user/${id}`)
+    .delete(`/user/${id}`, tokenConfig(getState))
     .then(res => {
       dispatch(createMessage({ deleteUser: `User ID(${id}) Deleted` }));
       dispatch({
@@ -36,9 +37,9 @@ export const deleteUser = id => dispatch => {
 };
 
 // ADD USER
-export const addUser = user => dispatch => {
+export const addUser = user => (dispatch, getState) => {
   axios
-    .post(`/user`, user)
+    .post(`/user`, user, tokenConfig(getState))
     .then(res => {
       console.log(res.data);
       dispatch(createMessage({ addUser: `User ${user.username} added` }));
