@@ -35,7 +35,9 @@ export class DevicesForm extends Component {
 
   onSubmit = e => {
     e.preventDefault();
-    const { name, platform, owner } = this.state;
+    var { name, platform, owner } = this.state;
+    platform = platform.value;
+    owner = owner.value;
     const device = { name, platform, owner };
     this.props.addDevice(device);
     this.setState({
@@ -74,7 +76,8 @@ export class DevicesForm extends Component {
             <Select
               value={owner}
               onChange={this.ownerHandler}
-              options={ownerList}s
+              options={ownerList}
+              s
             />
           </div>
           <div className="form-group">

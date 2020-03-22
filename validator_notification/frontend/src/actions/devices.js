@@ -7,7 +7,7 @@ import { GET_DEVICES, DELETE_DEVICE, ADD_DEVICE } from "./types";
 // GET USERS
 export const getDevices = () => (dispatch, getState) => {
   axios
-    .get("/user", tokenConfig(getState))
+    .get("/device", tokenConfig(getState))
     .then(res => {
       console.log(res.data);
       dispatch({
@@ -23,7 +23,7 @@ export const getDevices = () => (dispatch, getState) => {
 // DELETE USER
 export const deleteDevice = id => (dispatch, getState) => {
   axios
-    .delete(`/user/${id}`, tokenConfig(getState))
+    .delete(`/device/${id}`, tokenConfig(getState))
     .then(res => {
       dispatch(createMessage({ deleteDevice: `Device ID(${id}) Deleted` }));
       dispatch({
@@ -39,10 +39,10 @@ export const deleteDevice = id => (dispatch, getState) => {
 // ADD USER
 export const addDevice = device => (dispatch, getState) => {
   axios
-    .post(`/user`, device, tokenConfig(getState))
+    .post(`/device`, device, tokenConfig(getState))
     .then(res => {
       console.log(res.data);
-      dispatch(createMessage({ addDevice: `Device ${device.username} added` }));
+      dispatch(createMessage({ addDevice: `Device ${device.name} added` }));
       dispatch({
         type: ADD_DEVICE,
         payload: res.data

@@ -77,7 +77,6 @@ DJANGO_APPS = [
 THIRD_PARTY_APPS = []
 LOCAL_APPS = [
     'validator_notification.apps.device',
-    'validator_notification.apps.user',
     'validator_notification.frontend',
     'validator_notification.apps.accounts'
 ]

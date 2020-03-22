@@ -20,13 +20,11 @@ from rest_framework import routers
 from knox import views as knox_views
 
 from validator_notification.apps.accounts import views as accounts_views
-from validator_notification.apps.user import views as user_views
 from validator_notification.apps.device import views as device_views
 
 
 router = routers.DefaultRouter(trailing_slash=False)
 router.register(r'device', device_views.DeviceViewSet, basename="DeviceViewSet")
-router.register(r'user', user_views.UserViewSet, basename="UserViewSet")
 
 urlpatterns = [
     path('admin/', admin.site.urls),

@@ -1,6 +1,7 @@
 export const GET_DEVICES = "GET_DEVICES";
 export const DELETE_DEVICE = "DELETE_DEVICE";
 export const ADD_DEVICE = "ADD_DEVICE";
+export const CLEAR_DEVICES = "CLEAR_DEVICES";
 
 export const GET_ERRORS = "GET_ERRORS";
 
