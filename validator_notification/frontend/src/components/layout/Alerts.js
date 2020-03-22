@@ -19,8 +19,8 @@ export class Alerts extends Component {
     }
 
     if (message !== prevProps.message) {
-      if (message.deleteUser) alert.success(message.deleteUser);
-      if (message.addUser) alert.success(message.addUser);
+      if (message.deleteDevice) alert.success(message.deleteDevice);
+      if (message.addDevice) alert.success(message.addDevice);
       if (message.passwordNotMatch) alert.error(message.passwordNotMatch);
     }
   }

@@ -2,16 +2,16 @@ import axios from "axios";
 import { createMessage, returnErrors } from "./messages";
 import { tokenConfig } from "./auth";
 
-import { GET_USERS, DELETE_USER, ADD_USER } from "./types";
+import { GET_DEVICES, DELETE_DEVICE, ADD_DEVICE } from "./types";
 
 // GET USERS
-export const getUsers = () => (dispatch, getState) => {
+export const getDevices = () => (dispatch, getState) => {
   axios
     .get("/user", tokenConfig(getState))
     .then(res => {
       console.log(res.data);
       dispatch({
-        type: GET_USERS,
+        type: GET_DEVICES,
         payload: res.data
       });
     })
@@ -21,13 +21,13 @@ export const getUsers = () => (dispatch, getState) => {
 };
 
 // DELETE USER
-export const deleteUser = id => (dispatch, getState) => {
+export const deleteDevice = id => (dispatch, getState) => {
   axios
     .delete(`/user/${id}`, tokenConfig(getState))
     .then(res => {
-      dispatch(createMessage({ deleteUser: `User ID(${id}) Deleted` }));
+      dispatch(createMessage({ deleteDevice: `Device ID(${id}) Deleted` }));
       dispatch({
-        type: DELETE_USER,
+        type: DELETE_DEVICE,
         payload: id
       });
     })
@@ -37,14 +37,14 @@ export const deleteUser = id => (dispatch, getState) => {
 };
 
 // ADD USER
-export const addUser = user => (dispatch, getState) => {
+export const addDevice = device => (dispatch, getState) => {
   axios
-    .post(`/user`, user, tokenConfig(getState))
+    .post(`/user`, device, tokenConfig(getState))
     .then(res => {
       console.log(res.data);
-      dispatch(createMessage({ addUser: `User ${user.username} added` }));
+      dispatch(createMessage({ addDevice: `Device ${device.username} added` }));
       dispatch({
-        type: ADD_USER,
+        type: ADD_DEVICE,
         payload: res.data
       });
     })

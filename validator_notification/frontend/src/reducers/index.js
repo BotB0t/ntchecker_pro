@@ -1,11 +1,11 @@
 import { combineReducers } from "redux";
-import users from "./users";
+import devices from "./devices";
 import errors from "./errors";
 import messages from "./messages";
 import auth from "./auth";
 
 export default combineReducers({
-  users,
+  devices,
   errors,
   messages,
   auth

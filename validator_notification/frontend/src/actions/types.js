@@ -1,6 +1,6 @@
-export const GET_USERS = "GET_USERS";
-export const DELETE_USER = "DELETE_USER";
-export const ADD_USER = "ADD_USER";
+export const GET_DEVICES = "GET_DEVICES";
+export const DELETE_DEVICE = "DELETE_DEVICE";
+export const ADD_DEVICE = "ADD_DEVICE";
 
 export const GET_ERRORS = "GET_ERRORS";
 
