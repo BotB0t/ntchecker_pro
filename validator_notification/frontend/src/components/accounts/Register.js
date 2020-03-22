@@ -20,7 +20,10 @@ export class Register extends Component {
 
   onSubmit = e => {
     e.preventDefault();
-    const { username, email, password, password2 } = this.state;
+    var username = this.state.username.toLowerCase();
+    var email = this.state.email;
+    var password = this.state.password;
+    var password2 = this.state.password2;
     if (password !== password2) {
       this.props.createMessage({
         passwordNotMatch: "Las contraseñas no coinciden."
