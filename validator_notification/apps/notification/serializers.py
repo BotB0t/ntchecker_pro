@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from validator_notification.apps.notification.models import GeneralNotification
+from validator_notification.apps.notification.models import GeneralNotification, IndividualNotification
 
 
 class GeneralNotificationSerializer(serializers.ModelSerializer):
@@ -10,4 +10,12 @@ class GeneralNotificationSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = GeneralNotification
+        fields = '__all__'
+
+
+class IndividualNotificationSerializer(serializers.ModelSerializer):
+    option_selected = serializers.CharField(required=True, allow_blank=False)
+
+    class Meta:
+        model = IndividualNotification
         fields = '__all__'

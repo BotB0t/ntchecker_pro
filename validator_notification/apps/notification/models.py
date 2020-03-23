@@ -14,9 +14,11 @@ class GeneralNotification(models.Model):
 class IndividualNotification(models.Model):
     general = models.ForeignKey(GeneralNotification, related_name="general_notification",
                                 on_delete=models.CASCADE, null=False)
-    user = models.ForeignKey(DjangoUser, related_name="user",
+    user = models.ForeignKey(DjangoUser, related_name="individual_notifications",
                                 on_delete=models.CASCADE, null=True)
-    device = models.ForeignKey(Device, related_name="device",
+    device = models.ForeignKey(Device, related_name="devices",
                                  on_delete=models.CASCADE, null=True)
     option_selected = models.CharField(max_length=10, choices=options_notification.tuples(),
                                        default='', null=True)
+    update_at = models.DateTimeField(auto_now=True)
+    created_at = models.DateTimeField(auto_now_add=True)
