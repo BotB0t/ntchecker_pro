@@ -63,6 +63,18 @@ export class Header extends Component {
             <a className="navbar-brand" href="#">
               Validador de Notificaciones
             </a>
+            <ul className="navbar-nav ml-auto mt-2 mt-lg-0">
+              <li className="nav-item">
+                <Link to="/" className="nav-link">
+                  Listado Notificaciones
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link to="/profile-info/devices" className="nav-link">
+                  Dispositivos
+                </Link>
+              </li>
+            </ul>
           </div>
           {isAuthenticated ? authLinks : guestLinks}
         </div>
