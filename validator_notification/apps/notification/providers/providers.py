@@ -1,5 +1,5 @@
 from django.contrib.auth.models import User
-from validator_notification.apps.notification.models import GeneralNotification, IndividualNotification
+from validator_notification.apps.notification.models import IndividualNotification
 from validator_notification.apps.notification.providers.assemblers import assemble_notification_list
 from validator_notification.apps.utils.logger.logger import get_instance_logger
 
