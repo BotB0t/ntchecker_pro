@@ -1,10 +1,10 @@
 import logging
 
-from django.http import JsonResponse
 from rest_framework.decorators import action
 from rest_framework import permissions, viewsets, status
 from rest_framework.response import Response
 
+from validator_notification.apps.notification.providers.providers import NotificationsProvider
 from validator_notification.apps.device.models import Device
 from .serializers import GeneralNotificationSerializer, IndividualNotificationSerializer
 from .models import GeneralNotification, IndividualNotification
@@ -45,11 +45,25 @@ class IndividualNotificationViewSet(viewsets.ModelViewSet):
     ]
     serializer_class = IndividualNotificationSerializer
 
-    def get_queryset(self):
-        return self.request.user.individual_notifications.all()
+    @staticmethod
+    def _get_provider(request):
+        return NotificationsProvider()
+
+    def _get_individual_notifications(self, response):
+        serialized_response = IndividualNotificationSerializer(instance=response, many=True)
+        data_response = {
+            'data': serialized_response.instance
+        }
+        return Response(data_response, status=status.HTTP_200_OK)
+
+    def list(self, request):
+        provider = self._get_provider(self.request)
+        response = provider.get_by_user(user=request.user)
+        return self._get_individual_notifications(response)
 
     @action(methods=['get'], detail=False, url_path='all')
     def get_all_queryset(self, request):
         self.permission_classes = [permissions.AllowAny]
-        data = list(IndividualNotification.objects.values())
-        return JsonResponse(data, safe=False, status=status.HTTP_200_OK)
+        provider = self._get_provider(request)
+        response = provider.get()
+        return self._get_individual_notifications(response)

@@ -20,5 +20,5 @@ class IndividualNotification(models.Model):
                                  on_delete=models.CASCADE, null=True)
     option_selected = models.CharField(max_length=10, choices=options_notification.tuples(),
                                        default='', null=True)
-    update_at = models.DateTimeField(auto_now=True)
+    updated_at = models.DateTimeField(auto_now=True)
     created_at = models.DateTimeField(auto_now_add=True)
