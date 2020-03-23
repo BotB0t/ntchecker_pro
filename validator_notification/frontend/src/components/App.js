@@ -13,6 +13,7 @@ import AlertTemplate from "react-alert-template-basic";
 import Header from "./layout/Header";
 import Alerts from "./layout/Alerts";
 import LayoutDevices from "./devices/LayoutDevices";
+import LayoutNotifications from "./notifications/LayoutNotifications";
 import Login from "./accounts/Login";
 import Register from "./accounts/Register";
 import PrivateRoute from "./common/PrivateRoute";
@@ -44,7 +45,16 @@ class App extends Component {
               <Alerts />
               <div className="container">
                 <Switch>
-                  <PrivateRoute exact path="/" component={LayoutDevices} />
+                  <PrivateRoute
+                    exact
+                    path="/profile-info/devices"
+                    component={LayoutDevices}
+                  />
+                  <PrivateRoute
+                    exact
+                    path="/"
+                    component={LayoutNotifications}
+                  />
                   <Route exact path="/register" component={Register} />
                   <Route exact path="/login" component={Login} />
                 </Switch>
