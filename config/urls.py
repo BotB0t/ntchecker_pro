@@ -21,10 +21,15 @@ from knox import views as knox_views
 
 from validator_notification.apps.accounts import views as accounts_views
 from validator_notification.apps.device import views as device_views
+from validator_notification.apps.notification import views as notification_views
 
 
 router = routers.DefaultRouter(trailing_slash=False)
 router.register(r'device', device_views.DeviceViewSet, basename="DeviceViewSet")
+router.register(r'notification/general', notification_views.GeneralNotificationViewSet,
+                basename="GeneralNotificationViewSet")
+router.register(r'notification', notification_views.IndividualNotificationViewSet,
+                basename="IndividualNotificationViewSet")
 
 urlpatterns = [
     path('admin/', admin.site.urls),
