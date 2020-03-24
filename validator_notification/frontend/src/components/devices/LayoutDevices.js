@@ -5,8 +5,13 @@ import Devices from "./Devices";
 export default function LayoutDevices() {
   return (
     <Fragment>
-      <DevicesForm />
-      <Devices />
+      <div className="container">
+        <DevicesForm />
+      </div>
+      <br></br>
+      <div className="container">
+        <Devices />
+      </div>
     </Fragment>
   );
 }

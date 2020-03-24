@@ -50,42 +50,56 @@ export class DevicesForm extends Component {
   render() {
     const { name, platform, owner } = this.state;
     return (
-      <div className="card card-body mt-4 mb-4">
-        <h1>AÑADIR DISPOSITIVO</h1>
-        <form onSubmit={this.onSubmit}>
-          <div className="form-group">
-            <label>NOMBRE</label>
-            <input
-              className="form-control"
-              type="text"
-              name="name"
-              onChange={this.onChange}
-              value={name}
-            />
+      <div>
+        <button
+          className="btn btn-outline-success btn-block"
+          type="button"
+          data-toggle="collapse"
+          data-target="#collapseForm"
+          aria-expanded="false"
+          aria-controls="collapseForm"
+        >
+          Añadir Dispositivo
+        </button>
+        <div className="collapse" id="collapseForm">
+          <div className="card card-body mt-4 mb-4">
+            <h1>AÑADIR DISPOSITIVO</h1>
+            <form onSubmit={this.onSubmit}>
+              <div className="form-group">
+                <label>NOMBRE</label>
+                <input
+                  className="form-control"
+                  type="text"
+                  name="name"
+                  onChange={this.onChange}
+                  value={name}
+                />
+              </div>
+              <div className="form-group">
+                <label>PLATAFORMA</label>
+                <Select
+                  value={platform}
+                  onChange={this.platformHandler}
+                  options={platformList}
+                />
+              </div>
+              <div className="form-group">
+                <label>PROPIETARIO</label>
+                <Select
+                  value={owner}
+                  onChange={this.ownerHandler}
+                  options={ownerList}
+                  s
+                />
+              </div>
+              <div className="form-group">
+                <button type="submit" className="btn btn-primary">
+                  AÑADIR DISPOSITIVO
+                </button>
+              </div>
+            </form>
           </div>
-          <div className="form-group">
-            <label>PLATAFORMA</label>
-            <Select
-              value={platform}
-              onChange={this.platformHandler}
-              options={platformList}
-            />
-          </div>
-          <div className="form-group">
-            <label>PROPIETARIO</label>
-            <Select
-              value={owner}
-              onChange={this.ownerHandler}
-              options={ownerList}
-              s
-            />
-          </div>
-          <div className="form-group">
-            <button type="submit" className="btn btn-primary">
-              AÑADIR DISPOSITIVO
-            </button>
-          </div>
-        </form>
+        </div>
       </div>
     );
   }

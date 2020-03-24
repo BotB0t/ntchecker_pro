@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { updateNotification } from "../../actions/notifications";
@@ -43,8 +44,8 @@ export class CardNotification extends Component {
     // console.log(notification_to_update);
     this.props.updateNotification(notification_to_update, notification.id);
     this.setState({
-      disable_btn_no: "",
-      disable_btn_yes: ""
+      disable_btn_no: true,
+      disable_btn_yes: true
     });
   };
 
@@ -68,8 +69,8 @@ export class CardNotification extends Component {
         this.state.disable_btn_yes = false;
         this.state.disable_btn_no = true;
       } else {
-        this.state.disable_btn_yes = false;
-        this.state.disable_btn_no = false;
+        this.state.disable_btn_yes = true;
+        this.state.disable_btn_no = true;
       }
     }
 
