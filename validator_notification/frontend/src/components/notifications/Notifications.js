@@ -20,12 +20,18 @@ export class Notifications extends Component {
       <Fragment>
         <h1>Notificaciones List</h1>
         <div className="container">
-          {this.props.notifications.map(notification => (
-            <CardNotification
-              notification={notification}
-              key={notification.id}
-            />
-          ))}
+          {console.log("Montando notis estoy")}
+          {this.props.notifications.map(
+            notification => (
+              console.log(notification),
+              (
+                <CardNotification
+                  notification={notification}
+                  key={notification.id}
+                />
+              )
+            )
+          )}
         </div>
       </Fragment>
     );

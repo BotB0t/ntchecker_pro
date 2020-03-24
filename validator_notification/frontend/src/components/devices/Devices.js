@@ -35,7 +35,11 @@ export class Devices extends Component {
                 <td>{device.owner}</td>
                 <td>
                   <button
-                    onClick={this.props.deleteDevice.bind(this, device.id)}
+                    onClick={this.props.deleteDevice.bind(
+                      this,
+                      device.id,
+                      device.name
+                    )}
                     className="btn btn-danger btn-sm"
                   >
                     Delete
