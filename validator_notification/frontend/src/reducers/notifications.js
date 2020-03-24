@@ -2,6 +2,7 @@ import {
   ADD_NOTIFICATION,
   GET_NOTIFICATION,
   DELETE_NOTIFICATION,
+  UPDATE_NOTIFICATION,
   CLEAR_NOTIFICATIONS
 } from "../actions/types.js";
 
@@ -16,6 +17,7 @@ export default function(state = initialState, action) {
         ...state,
         notifications: action.payload
       };
+    case UPDATE_NOTIFICATION:
     case DELETE_NOTIFICATION:
       return {
         ...state,
@@ -31,7 +33,7 @@ export default function(state = initialState, action) {
     case CLEAR_NOTIFICATIONS:
       return {
         ...state,
-        leads: []
+        notifications: []
       };
     default:
       return state;

@@ -2,7 +2,12 @@ import axios from "axios";
 import { createMessage, returnErrors } from "./messages";
 import { tokenConfig } from "./auth";
 
-import { GET_DEVICES, DELETE_DEVICE, ADD_DEVICE } from "./types";
+import {
+  GET_DEVICES,
+  DELETE_DEVICE,
+  ADD_DEVICE,
+  ADD_DEVICE_FAIL
+} from "./types";
 
 // GET USERS
 export const getDevices = () => (dispatch, getState) => {
@@ -21,11 +26,11 @@ export const getDevices = () => (dispatch, getState) => {
 };
 
 // DELETE USER
-export const deleteDevice = id => (dispatch, getState) => {
+export const deleteDevice = (id, name) => (dispatch, getState) => {
   axios
     .delete(`/device/${id}`, tokenConfig(getState))
     .then(res => {
-      dispatch(createMessage({ deleteDevice: `Device ID(${id}) Deleted` }));
+      dispatch(createMessage({ deleteDevice: `Device ${name} Deleted` }));
       dispatch({
         type: DELETE_DEVICE,
         payload: id
@@ -42,13 +47,18 @@ export const addDevice = device => (dispatch, getState) => {
     .post(`/device`, device, tokenConfig(getState))
     .then(res => {
       console.log(res.data);
-      dispatch(createMessage({ addDevice: `Device ${device.name} added` }));
+      dispatch(
+        createMessage({ addDevice: `Dispositivo ${device.name} añadido` })
+      );
       dispatch({
         type: ADD_DEVICE,
         payload: res.data
       });
     })
-    .catch(err =>
-      dispatch(returnErrors(err.response.data, err.response.status))
-    );
+    .catch(err => {
+      dispatch(returnErrors(err.response.data, err.response.status));
+      dispatch({
+        type: ADD_DEVICE_FAIL
+      });
+    });
 };

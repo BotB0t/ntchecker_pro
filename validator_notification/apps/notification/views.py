@@ -67,3 +67,6 @@ class IndividualNotificationViewSet(viewsets.ModelViewSet):
         provider = self._get_provider(request)
         response = provider.get()
         return self._get_individual_notifications(response)
+
+    def get_queryset(self):
+        return self.request.user.individual_notifications.all()
