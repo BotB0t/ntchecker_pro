@@ -15,23 +15,69 @@ export class Notifications extends Component {
     this.props.getNotifications();
   }
 
+  refreshPage() {
+    window.location.reload(false);
+  }
+
   render() {
+    console.log(this.props);
     return (
       <Fragment>
-        <h1>Notificaciones List</h1>
         <div className="container">
-          {console.log("Montando notis estoy")}
-          {this.props.notifications.map(
-            notification => (
-              console.log(notification),
-              (
-                <CardNotification
-                  notification={notification}
-                  key={notification.id}
-                />
-              )
-            )
-          )}
+          <h1>Lista de Notificaciones</h1>
+          <div>
+            <button
+              className="btn btn-outline-secondary btn-block"
+              onClick={this.refreshPage}
+            >
+              Actualizar
+            </button>
+          </div>
+          <br></br>
+          <div className="container">
+            <ul className="nav nav-tabs nav-justified">
+              <li className="nav-item">
+                <a
+                  className="nav-link active"
+                  data-toggle="tab"
+                  href="#unreaded"
+                >
+                  Notificaciones
+                </a>
+              </li>
+              <li className="nav-item">
+                <a className="nav-link" data-toggle="tab" href="#readed">
+                  Contestadas
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div class="tab-content">
+            <div className="tab-pane container active" id="unreaded">
+              {this.props.notifications.map(function(notification) {
+                if (notification.status === "NEW") {
+                  return (
+                    <CardNotification
+                      notification={notification}
+                      key={notification.id}
+                    />
+                  );
+                }
+              })}
+            </div>
+            <div className="tab-pane container fade" id="readed">
+              {this.props.notifications.map(function(notification) {
+                if (notification.status === "READ") {
+                  return (
+                    <CardNotification
+                      notification={notification}
+                      key={notification.id}
+                    />
+                  );
+                }
+              })}
+            </div>
+          </div>
         </div>
       </Fragment>
     );
