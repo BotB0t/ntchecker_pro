@@ -72,7 +72,8 @@ DJANGO_APPS = [
     'django.contrib.messages',
     'corsheaders',
     'rest_framework',
-    'knox'
+    'knox',
+    'import_export',
 ]
 THIRD_PARTY_APPS = []
 LOCAL_APPS = [
