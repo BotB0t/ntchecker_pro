@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { getNotifications } from "../../actions/notifications";
 
@@ -21,6 +22,13 @@ export class Notifications extends Component {
 
   render() {
     console.log(this.props);
+
+    const noNotificationsMessage = (
+      <div className="container">
+        <br></br> No hay notificaciones aun, ¿porque no{" "}
+        <Link to="/profile-info/devices">añades un dispositivo</Link>?{" "}
+      </div>
+    );
     return (
       <Fragment>
         <div className="container">
@@ -52,8 +60,13 @@ export class Notifications extends Component {
               </li>
             </ul>
           </div>
-          <div class="tab-content">
+          <div className="tab-content">
             <div className="tab-pane container active" id="unreaded">
+              {this.props.notifications.length == 0 ? (
+                noNotificationsMessage
+              ) : (
+                <br></br>
+              )}
               {this.props.notifications.map(function(notification) {
                 if (notification.status === "NEW") {
                   return (
