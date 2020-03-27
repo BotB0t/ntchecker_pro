@@ -21,7 +21,7 @@ export class Notifications extends Component {
   }
 
   render() {
-    console.log(this.props);
+    // console.log(this.props);
 
     const noNotificationsMessage = (
       <div className="container">

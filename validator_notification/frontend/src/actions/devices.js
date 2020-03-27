@@ -14,7 +14,7 @@ export const getDevices = () => (dispatch, getState) => {
   axios
     .get("/device", tokenConfig(getState))
     .then(res => {
-      console.log(res.data);
+      // console.log(res.data);
       dispatch({
         type: GET_DEVICES,
         payload: res.data
@@ -46,7 +46,7 @@ export const addDevice = device => (dispatch, getState) => {
   axios
     .post(`/device`, device, tokenConfig(getState))
     .then(res => {
-      console.log(res.data);
+      // console.log(res.data);
       dispatch(
         createMessage({ addDevice: `Dispositivo ${device.name} añadido` })
       );
