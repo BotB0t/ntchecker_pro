@@ -79,7 +79,11 @@ export class Notifications extends Component {
               })}
             </div>
             <div className="tab-pane container fade" id="readed">
-              <br></br>
+              {this.props.notifications.length == 0 ? (
+                noNotificationsMessage
+              ) : (
+                <br></br>
+              )}
               {this.props.notifications.map(function(notification) {
                 if (notification.status === "READ") {
                   return (
