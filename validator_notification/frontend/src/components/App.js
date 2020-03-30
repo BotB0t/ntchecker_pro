@@ -24,7 +24,7 @@ import { loadUser } from "../actions/auth";
 
 // ALERTS OPTIONS
 const alertOptions = {
-  timeout: 5000,
+  timeout: 3000,
   position: positions.TOP_CENTER,
   offset: "30px",
   transition: transitions.SCALE

@@ -3,6 +3,16 @@ import Select from "react-select";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { addDevice } from "../../actions/devices";
+import {
+  isMobile,
+  isAndroid,
+  osVersion,
+  osName,
+  mobileModel,
+  isBrowser,
+  getUA,
+  mobileVendor
+} from "react-device-detect";
 
 const platformList = [
   { label: "Android", value: "Android" },
@@ -13,14 +23,24 @@ const ownerList = [
   { label: "Empresa", value: "Empresa" }
 ];
 
+function format_user_agent() {
+  if (isMobile) {
+    this.setState();
+  }
+}
+
 export class DevicesForm extends Component {
   state = {
     name: "",
     platform: "",
-    owner: ""
+    owner: "",
+    device: "",
+    os_family: "",
+    os_version: ""
   };
 
   platformHandler = platform => {
+    console.log(platform);
     this.setState({ platform });
   };
   ownerHandler = owner => {
@@ -35,20 +55,31 @@ export class DevicesForm extends Component {
 
   onSubmit = e => {
     e.preventDefault();
-    var { name, platform, owner } = this.state;
+    var { name, platform, owner, device, os_family, os_version } = this.state;
     platform = platform.value;
     owner = owner.value;
-    const device = { name, platform, owner };
-    this.props.addDevice(device);
+    const _device = { name, platform, owner, device, os_family, os_version };
+    console.log(_device);
+    this.props.addDevice(_device);
     this.setState({
       name: "",
       platform: "",
-      owner: ""
+      owner: "",
+      device: "",
+      os_family: "",
+      os_version: ""
     });
   };
 
   render() {
     const { name, platform, owner } = this.state;
+    if (isMobile) {
+      this.state.device = mobileVendor + " - " + mobileModel;
+      this.state.os_family = osName;
+      this.state.os_version = osVersion;
+      this.state.name = mobileModel ? mobileModel : "";
+    }
+
     return (
       <div>
         <button
@@ -64,12 +95,12 @@ export class DevicesForm extends Component {
         <div className="collapse" id="collapseForm">
           <div className="card card-body mt-4 mb-4">
             <h1>AÑADIR DISPOSITIVO</h1>
-            <form onSubmit={this.onSubmit}>
+            <>form onSubmit={this.onSubmit}>
               <div className="form-group">
-                <label>NOMBRE</label>
+                <label>Nº Teléfono o Extensión</label>
                 <input
                   className="form-control"
-                  type="text"
+                  type="number"
                   name="name"
                   onChange={this.onChange}
                   value={name}

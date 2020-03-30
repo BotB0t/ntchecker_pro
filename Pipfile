@@ -25,6 +25,7 @@ pillow = "*"
 pyjwt = "*"
 django-rest-swagger = "*"
 django-import-export = "*"
+pandas = "*"
 
 [requires]
 python_version = "3.7"

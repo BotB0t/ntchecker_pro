@@ -31,10 +31,9 @@ export class Login extends Component {
     return (
       <div className="col-md-6 m-auto">
         <div className="card card-body mt-5">
-          <h2 className="text-center">Iniciar Sesión</h2>
           <form onSubmit={this.onSubmit}>
             <div className="form-group">
-              <label>Username</label>
+              <label>Usuario (Ofidona):</label>
               <input
                 type="text"
                 className="form-control"

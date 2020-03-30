@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from validator_notification.apps.notification.models import IndividualNotification
-from validator_notification.apps.notification.providers.assemblers import assemble_notification_list
+from validator_notification.apps.notification.providers.assemblers import assemble_notification_list, \
+    assemble_notification_csv, assemble_notification_list_to_csv
 from validator_notification.apps.utils.logger.logger import get_instance_logger
 
 
@@ -15,3 +16,10 @@ class NotificationsProvider:
     def get(self):
         notifications = list(IndividualNotification.objects.all())
         return sorted(assemble_notification_list(notifications), key=lambda x: x['created_at'], reverse=True)
+
+    def get_csv(self, response):
+        notifications = list(IndividualNotification.objects.all())
+        notifications = sorted(assemble_notification_list_to_csv(notifications),
+                               key=lambda x: x['created_at'], reverse=True)
+        notification_csv = assemble_notification_csv(notifications, response)
+        return notification_csv
