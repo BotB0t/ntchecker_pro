@@ -54,7 +54,7 @@ export class Login extends Component {
             </div> */}
             <div className="form-group">
               <button type="submit" className="btn btn-primary">
-                Iniciar Sesión
+                Entrar
               </button>
             </div>
             {/* <p>

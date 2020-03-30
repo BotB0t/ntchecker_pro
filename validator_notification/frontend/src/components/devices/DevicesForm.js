@@ -95,7 +95,7 @@ export class DevicesForm extends Component {
         <div className="collapse" id="collapseForm">
           <div className="card card-body mt-4 mb-4">
             <h1>AÑADIR DISPOSITIVO</h1>
-            <>form onSubmit={this.onSubmit}>
+            <form onSubmit={this.onSubmit}>
               <div className="form-group">
                 <label>Nº Teléfono o Extensión</label>
                 <input
