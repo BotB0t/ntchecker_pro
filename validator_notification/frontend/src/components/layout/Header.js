@@ -38,7 +38,7 @@ export class Header extends Component {
         </li> */}
         <li className="nav-item">
           <Link to="/login" className="nav-link">
-            Inciar Sesión
+            Entrar
           </Link>
         </li>
       </ul>

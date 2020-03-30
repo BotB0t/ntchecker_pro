@@ -32,7 +32,7 @@ export class Notifications extends Component {
     return (
       <Fragment>
         <div className="container">
-          <h1>Lista de Notificaciones</h1>
+          <h1>Listado Notificaciones</h1>
           <div>
             <button
               className="btn btn-outline-secondary btn-block"
@@ -50,7 +50,7 @@ export class Notifications extends Component {
                   data-toggle="tab"
                   href="#unreaded"
                 >
-                  Notificaciones
+                  Pendientes
                 </a>
               </li>
               <li className="nav-item">
@@ -79,6 +79,7 @@ export class Notifications extends Component {
               })}
             </div>
             <div className="tab-pane container fade" id="readed">
+              <br></br>
               {this.props.notifications.map(function(notification) {
                 if (notification.status === "READ") {
                   return (

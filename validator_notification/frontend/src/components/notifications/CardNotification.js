@@ -76,7 +76,7 @@ export class CardNotification extends Component {
 
     // console.log(notification);
     return (
-      <div className="card border-secondary mb-3">
+      <div className="card border-secondary mb-3 rounded">
         <div className="card-header">
           <small className="text-muted">
             {new Intl.DateTimeFormat("es-ES", {

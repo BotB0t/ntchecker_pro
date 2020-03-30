@@ -5,7 +5,7 @@ import CSVNotifications from "../data/CSVNotifications";
 export default function LayoutNotifications() {
   return (
     <Fragment>
-      <CSVNotifications />
+      {/* <CSVNotifications /> */}
       <Notifications />
     </Fragment>
   );
