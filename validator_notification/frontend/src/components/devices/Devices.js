@@ -21,9 +21,9 @@ export class Devices extends Component {
         <table className="table table-striped">
           <thead>
             <tr>
-              <th>NOMBRE</th>
-              <th>PLATAFORMA</th>
-              <th>PROPIETARIO</th>
+              <th>Nº TLF</th>
+              <th>PLAT.</th>
+              <th>PROP.</th>
               <th></th>
             </tr>
           </thead>
