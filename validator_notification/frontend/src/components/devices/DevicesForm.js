@@ -82,6 +82,7 @@ export class DevicesForm extends Component {
 
     return (
       <div>
+        <br></br>
         <button
           className="btn btn-outline-success btn-block"
           type="button"

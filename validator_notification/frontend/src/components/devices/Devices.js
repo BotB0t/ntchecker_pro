@@ -17,7 +17,7 @@ export class Devices extends Component {
   render() {
     return (
       <Fragment>
-        <h1>Lista de Dispositivos</h1>
+        <h1>Listado Dispositivos</h1>
         <table className="table table-striped">
           <thead>
             <tr>
