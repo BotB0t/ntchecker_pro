@@ -55,6 +55,9 @@ export class CardNotification extends Component {
 
   render() {
     const { notification } = this.state;
+    const cardBorderDanger = "card border-danger mb3 rounded";
+    const cardBorderSuccess = "card border-success mb3 rounded";
+    const cardBorderDark = "card border-dark mb3 rounded";
 
     // console.log(this.state.notification);
     if (
@@ -74,9 +77,17 @@ export class CardNotification extends Component {
       }
     }
 
-    // console.log(notification);
+    const cardBorder = () => {
+      if (this.state.notification.option_selected === "") return cardBorderDark;
+      else if (this.state.notification.option_selected === "NO")
+        return cardBorderDanger;
+      else if (this.state.notification.option_selected === "YES")
+        return cardBorderSuccess;
+    };
+
+    // console.log(cardBorder());
     return (
-      <div className="card border-secondary mb-3 rounded">
+      <div className={cardBorder()}>
         <div className="card-header">
           <small className="text-muted">
             {new Intl.DateTimeFormat("es-ES", {
@@ -107,11 +118,7 @@ export class CardNotification extends Component {
                   onClick={() => this.handleOptionSelected("YES")}
                   type="submit"
                   className="btn btn-success btn-lg btn-block"
-                  disabled={
-                    this.state.notification.option_selected === "YES"
-                      ? true
-                      : false
-                  }
+                  disabled={this.state.disable_btn_yes}
                 >
                   SI
                 </button>

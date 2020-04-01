@@ -70,10 +70,10 @@ export class Notifications extends Component {
               {this.props.notifications.map(function(notification) {
                 if (notification.status === "NEW") {
                   return (
-                    <CardNotification
-                      notification={notification}
-                      key={notification.id}
-                    />
+                    <div className="container" key={notification.id}>
+                      <CardNotification notification={notification} />
+                      <br></br>
+                    </div>
                   );
                 }
               })}
@@ -87,10 +87,10 @@ export class Notifications extends Component {
               {this.props.notifications.map(function(notification) {
                 if (notification.status === "READ") {
                   return (
-                    <CardNotification
-                      notification={notification}
-                      key={notification.id}
-                    />
+                    <div className="container" key={notification.id}>
+                      <CardNotification notification={notification} />
+                      <br></br>
+                    </div>
                   );
                 }
               })}
