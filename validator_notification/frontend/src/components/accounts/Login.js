@@ -6,7 +6,9 @@ import { login } from "../../actions/auth";
 
 export class Login extends Component {
   state = {
-    username: "",
+    username: localStorage.getItem("username")
+      ? localStorage.getItem("username")
+      : "",
     password: ""
   };
 
@@ -18,6 +20,7 @@ export class Login extends Component {
   onSubmit = e => {
     e.preventDefault();
     this.props.login(this.state.username.toLowerCase(), "pruebas1");
+    localStorage.setItem("username", this.state.username);
   };
 
   onChange = e => this.setState({ [e.target.name]: e.target.value });
