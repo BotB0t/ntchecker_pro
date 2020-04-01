@@ -27,9 +27,11 @@ export const updateNotification = (notification, id) => (
   axios
     .put(`/notification/${id}`, notification, tokenConfig(getState))
     .then(res => {
-      // console.log("Status response: " + res.status);
+      // console.log(res.data);
       dispatch(
-        createMessage({ updateNotification: `Notificación actualizada` })
+        createMessage({
+          updateNotification: `Notificación actualizada: ${res.data.option_selected}`
+        })
       );
       dispatch({
         type: UPDATE_NOTIFICATION,

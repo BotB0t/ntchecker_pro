@@ -1,141 +1,106 @@
-import React, { Component } from "react";
-import { Redirect } from "react-router-dom";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
-import { updateNotification } from "../../actions/notifications";
+import React, { useState } from "react";
 
-export class CardNotification extends Component {
-  constructor(props) {
-    super(props);
-    // console.log(this.props);
+export default function CardNotification(props) {
+  var [notification, setNotification] = useState(props.notification);
+  var disable_btn_no = false;
+  var disable_btn_yes = false;
 
-    this.state = {
-      notification: this.props.notification,
-      disable_btn_yes: false,
-      disable_btn_no: false
-    };
-
-    // console.log(this.state.notification);
-
-    this.onSubmit = this.onSubmit.bind(this);
-  }
-
-  static propTypes = {
-    updateNotification: PropTypes.func.isRequired
-  };
-
-  // onChange = e => this.setState({ [e.target.name]: e.target.value });
-
-  onSubmit = e => {
-    e.preventDefault();
-    const { notification } = this.state;
-    var general = notification.general.id;
-    var user = notification.user.id;
-    var device = notification.device.id;
-    var option_selected = notification.option_selected;
-    var status = "READ";
-    const notification_to_update = {
-      general,
-      user,
-      device,
-      option_selected,
-      status
-    };
-    // console.log(notification_to_update);
-    this.props.updateNotification(notification_to_update, notification.id);
-    this.setState({
-      disable_btn_no: true,
-      disable_btn_yes: true
+  const handleOptionSelected = option_selected => {
+    setNotification({
+      ...notification,
+      option_selected: option_selected
     });
+    notification.option_selected = option_selected;
+    onSubmit();
   };
 
-  handleOptionSelected = option_selected => {
-    this.state.notification.option_selected = option_selected;
+  const onSubmit = () => {
+    const notification_to_update = {
+      general: notification.general.id,
+      user: notification.user.id,
+      device: notification.device.id,
+      option_selected: notification.option_selected,
+      status: "READ"
+    };
+    props.onSubmit(notification_to_update, notification.id);
+    disable_btn_yes = true;
+    disable_btn_no = true;
   };
 
-  render() {
-    const { notification } = this.state;
+  const cardBorder = () => {
+    const cardBorderDanger = "card border-danger mb3 rounded";
+    const cardBorderSuccess = "card border-success mb3 rounded";
+    const cardBorderDark = "card border-dark mb3 rounded";
+    if (notification.option_selected === "") return cardBorderDark;
+    else if (notification.option_selected === "NO") return cardBorderDanger;
+    else if (notification.option_selected === "YES") return cardBorderSuccess;
+  };
 
-    // console.log(this.state.notification);
-    if (
-      this.state.notification.option_selected !== "" &&
-      this.state.notification.status === "READ"
-    ) {
-      // console.log("HOLA");
-      if (this.state.notification.option_selected === "YES") {
-        this.state.disable_btn_yes = true;
-        this.state.disable_btn_no = false;
-      } else if (this.state.notification.option_selected === "NO") {
-        this.state.disable_btn_yes = false;
-        this.state.disable_btn_no = true;
-      } else {
-        this.state.disable_btn_yes = true;
-        this.state.disable_btn_no = true;
-      }
+  if (notification.option_selected !== "" && notification.status === "READ") {
+    if (notification.option_selected === "YES") {
+      disable_btn_yes = true;
+      disable_btn_no = false;
+    } else if (notification.option_selected === "NO") {
+      disable_btn_yes = false;
+      disable_btn_no = true;
+    } else {
+      disable_btn_yes = true;
+      disable_btn_no = true;
     }
-
-    // console.log(notification);
-    return (
-      <div className="card border-secondary mb-3 rounded">
-        <div className="card-header">
-          <small className="text-muted">
-            {new Intl.DateTimeFormat("es-ES", {
-              year: "numeric",
-              month: "long",
-              day: "numeric",
-              hour: "numeric",
-              minute: "numeric",
-              second: "numeric"
-            }).format(new Date(notification.created_at))}
-          </small>
-        </div>
-        <div className="card-body text-secondary">
-          <h5 className="card-title">{notification.general.title}</h5>
-          <form onSubmit={this.onSubmit}>
-            <div className="form-group">
-              Vas a validar con este dispositivo:{" "}
-              <b>{notification.device.name}</b>
-              <label>
-                ¿Ha recibido la notificación de esta{" "}
-                <a href={notification.general.url} target="_balnk">
-                  Publicación
-                </a>
-                ?
-              </label>
-              <div className="form-group">
-                <button
-                  onClick={() => this.handleOptionSelected("YES")}
-                  type="submit"
-                  className="btn btn-success btn-lg btn-block"
-                  disabled={
-                    this.state.notification.option_selected === "YES"
-                      ? true
-                      : false
-                  }
-                >
-                  SI
-                </button>
-                <button
-                  onClick={() => this.handleOptionSelected("NO")}
-                  type="submit"
-                  className="btn btn-danger btn-lg btn-block"
-                  disabled={this.state.disable_btn_no}
-                >
-                  NO
-                </button>
-              </div>
-            </div>
-          </form>
-        </div>
-      </div>
-    );
   }
+
+  return (
+    <div className={cardBorder()}>
+      <div className="card-header">
+        <small className="text-muted">
+          {new Intl.DateTimeFormat("es-ES", {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+            hour: "numeric",
+            minute: "numeric",
+            second: "numeric"
+          }).format(new Date(notification.created_at))}
+        </small>
+      </div>
+      <div className="card-body text-secondary">
+        <h2 className="card-title">
+          <b>{notification.general.title}</b>
+        </h2>
+        <form>
+          <div className="form-group">
+            Vas a validar con este dispositivo:{" "}
+            <h4>
+              <b>{notification.device.name}</b>
+            </h4>
+            <label>
+              ¿Ha recibido la notificación de esta{" "}
+              <a href={notification.general.url} target="_balnk">
+                Publicación
+              </a>
+              ?
+            </label>
+            <div className="form-group">
+              <button
+                onClick={() => handleOptionSelected("YES")}
+                type="submit"
+                className="btn btn-success btn-lg btn-block"
+                disabled={disable_btn_yes}
+              >
+                SI
+              </button>
+              <button
+                onClick={() => handleOptionSelected("NO")}
+                type="submit"
+                className="btn btn-danger btn-lg btn-block"
+                disabled={disable_btn_no}
+              >
+                NO
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
 }
-
-const mapStateToProps = state => ({});
-
-export default connect(mapStateToProps, { updateNotification })(
-  CardNotification
-);
-
-// export default CardNotification;
