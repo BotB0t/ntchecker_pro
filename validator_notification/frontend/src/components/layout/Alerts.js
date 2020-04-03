@@ -6,7 +6,7 @@ import PropTypes from "prop-types";
 export class Alerts extends Component {
   static propTypes = {
     error: PropTypes.object.isRequired,
-    message: PropTypes.object.isRequired
+    message: PropTypes.object.isRequired,
   };
 
   componentDidUpdate(prevProps) {
@@ -33,20 +33,20 @@ export class Alerts extends Component {
     if (message !== prevProps.message) {
       if (message.deleteDevice) alert.success(message.deleteDevice);
       if (message.addDevice) alert.success(message.addDevice);
+      if (message.addDeviceFailed) alert.error(message.addDeviceFailed);
       if (message.passwordNotMatch) alert.error(message.passwordNotMatch);
       if (message.updateNotification) alert.success(message.updateNotification);
     }
   }
 
   render() {
-    1;
     return <Fragment />;
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   error: state.errors,
-  message: state.messages
+  message: state.messages,
 });
 
 export default connect(mapStateToProps)(withAlert()(Alerts));

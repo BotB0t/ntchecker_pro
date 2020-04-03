@@ -9,6 +9,7 @@ import {
   mobileModel,
   isIOS,
   mobileVendor,
+  isMobile,
 } from "react-device-detect";
 
 const platformList = [
@@ -67,33 +68,30 @@ export class DevicesForm extends Component {
       os_family,
       os_version,
     };
-    console.log(_device);
     this.props.addDevice(_device);
-    // this.setState({
-    //   name: "",
-    //   tlf: "",
-    //   platform: "",
-    //   owner: "",
-    //   device: "",
-    //   os_family: "",
-    //   os_version: "",
-    // });
-  };
-
-  handleSwitchChange = () => {
     this.setState({
-      device: mobileVendor + " - " + mobileModel,
-      os_family: osName,
-      os_version: osVersion,
-      platform: isIOS ? platformList[1] : platformList[0],
+      name: "",
+      tlf: "",
+      platform: "",
+      owner: "",
+      device: "",
+      os_family: "",
+      os_version: "",
     });
   };
 
-  render() {
-    console.log(this.state);
-    console.log(mobileModel);
-    console.log(mobileVendor);
+  handleSwitchChange = () => {
+    if (isMobile) {
+      this.setState({
+        device: mobileVendor + " - " + mobileModel,
+        os_family: osName,
+        os_version: osVersion,
+        platform: isIOS ? platformList[1] : platformList[0],
+      });
+    }
+  };
 
+  render() {
     return (
       <div>
         <br></br>
