@@ -7,7 +7,7 @@ export class Devices extends Component {
   static propTypes = {
     devices: PropTypes.array.isRequired,
     getDevices: PropTypes.func.isRequired,
-    deleteDevice: PropTypes.func.isRequired
+    deleteDevice: PropTypes.func.isRequired,
   };
 
   componentDidMount() {
@@ -24,13 +24,13 @@ export class Devices extends Component {
               <th>Nº TLF</th>
               <th>PLAT.</th>
               <th>PROP.</th>
-              <th></th>
+              <th>-</th>
             </tr>
           </thead>
           <tbody>
-            {this.props.devices.map(device => (
+            {this.props.devices.map((device) => (
               <tr key={device.id}>
-                <td>{device.name}</td>
+                <td>{device.tlf}</td>
                 <td>{device.platform}</td>
                 <td>{device.owner}</td>
                 <td>
@@ -54,8 +54,8 @@ export class Devices extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  devices: state.devices.devices
+const mapStateToProps = (state) => ({
+  devices: state.devices.devices,
 });
 
 export default connect(mapStateToProps, { getDevices, deleteDevice })(Devices);
