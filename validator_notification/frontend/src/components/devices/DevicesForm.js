@@ -4,30 +4,21 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { addDevice } from "../../actions/devices";
 import {
-  isMobile,
-  isAndroid,
   osVersion,
   osName,
   mobileModel,
-  isBrowser,
-  getUA,
-  mobileVendor
+  isIOS,
+  mobileVendor,
 } from "react-device-detect";
 
 const platformList = [
   { label: "Android", value: "Android" },
-  { label: "iOS", value: "iOS" }
+  { label: "iOS", value: "iOS" },
 ];
 const ownerList = [
   { label: "Personal", value: "Personal" },
-  { label: "Empresa", value: "Empresa" }
+  { label: "Empresa", value: "Empresa" },
 ];
-
-function format_user_agent() {
-  if (isMobile) {
-    this.setState();
-  }
-}
 
 export class DevicesForm extends Component {
   state = {
@@ -36,49 +27,72 @@ export class DevicesForm extends Component {
     owner: "",
     device: "",
     os_family: "",
-    os_version: ""
+    os_version: "",
+    isAutocomplete: false,
   };
 
-  platformHandler = platform => {
-    console.log(platform);
-    this.setState({ platform });
+  platformHandler = (platform) => {
+    this.setState({ platform: platform });
   };
-  ownerHandler = owner => {
-    this.setState({ owner });
+  ownerHandler = (owner) => {
+    this.setState({ owner: owner });
   };
 
   static propTypes = {
-    addDevice: PropTypes.func.isRequired
+    addDevice: PropTypes.func.isRequired,
   };
 
-  onChange = e => this.setState({ [e.target.name]: e.target.value });
+  onChange = (e) => this.setState({ [e.target.name]: e.target.value });
 
-  onSubmit = e => {
+  onSubmit = (e) => {
     e.preventDefault();
-    var { name, platform, owner, device, os_family, os_version } = this.state;
+    var {
+      name,
+      tlf,
+      platform,
+      owner,
+      device,
+      os_family,
+      os_version,
+    } = this.state;
     platform = platform.value;
     owner = owner.value;
-    const _device = { name, platform, owner, device, os_family, os_version };
+    name = tlf + "-" + mobileModel + "-" + owner;
+    const _device = {
+      name,
+      tlf,
+      platform,
+      owner,
+      device,
+      os_family,
+      os_version,
+    };
     console.log(_device);
     this.props.addDevice(_device);
+    // this.setState({
+    //   name: "",
+    //   tlf: "",
+    //   platform: "",
+    //   owner: "",
+    //   device: "",
+    //   os_family: "",
+    //   os_version: "",
+    // });
+  };
+
+  handleSwitchChange = () => {
     this.setState({
-      name: "",
-      platform: "",
-      owner: "",
-      device: "",
-      os_family: "",
-      os_version: ""
+      device: mobileVendor + " - " + mobileModel,
+      os_family: osName,
+      os_version: osVersion,
+      platform: isIOS ? platformList[1] : platformList[0],
     });
   };
 
   render() {
-    const { name, platform, owner } = this.state;
-    if (isMobile) {
-      this.state.device = mobileVendor + " - " + mobileModel;
-      this.state.os_family = osName;
-      this.state.os_version = osVersion;
-      this.state.name = mobileModel ? mobileModel : "";
-    }
+    console.log(this.state);
+    console.log(mobileModel);
+    console.log(mobileVendor);
 
     return (
       <div>
@@ -97,33 +111,76 @@ export class DevicesForm extends Component {
           <div className="card card-body mt-4 mb-4">
             <h1>AÑADIR DISPOSITIVO</h1>
             <form onSubmit={this.onSubmit}>
+              <div className="form-group text-center">
+                <button
+                  type="button"
+                  className="btn btn-link"
+                  onClick={() => this.handleSwitchChange()}
+                  readOnly
+                >
+                  Autocompletar
+                </button>
+              </div>
               <div className="form-group">
-                <label>Nº Teléfono o Extensión</label>
+                <label>
+                  <span style={{ color: "red" }}>*</span> Nº TLF o EXT.
+                </label>
                 <input
                   className="form-control"
                   type="number"
-                  name="name"
+                  name="tlf"
                   onChange={this.onChange}
-                  value={name}
+                  value={this.state.tlf}
                 />
               </div>
               <div className="form-group">
-                <label>PLATAFORMA</label>
+                <label>
+                  <span style={{ color: "red" }}>*</span> PLATAFORMA
+                </label>
                 <Select
-                  value={platform}
+                  value={this.state.platform}
+                  name="platform"
                   onChange={this.platformHandler}
                   options={platformList}
                 />
               </div>
               <div className="form-group">
-                <label>PROPIETARIO</label>
+                <label>
+                  <span style={{ color: "red" }}>*</span> PROPIETARIO
+                </label>
                 <Select
-                  value={owner}
+                  value={this.state.owner}
+                  name="owner"
                   onChange={this.ownerHandler}
                   options={ownerList}
-                  s
                 />
               </div>
+              <hr></hr>
+              <div className="form-group">
+                <label>
+                  MODELO <i>{this.state.platform.value}</i>
+                </label>
+                <input
+                  value={this.state.device}
+                  className="form-control"
+                  type="text"
+                  name="device"
+                  onChange={this.onChange}
+                />
+              </div>
+              <div className="form-group">
+                <label>
+                  VERSION <i>{this.state.platform.value}</i>
+                </label>
+                <input
+                  value={this.state.os_version}
+                  className="form-control"
+                  type="text"
+                  name="os_version"
+                  onChange={this.onChange}
+                />
+              </div>
+              <hr></hr>
               <div className="form-group">
                 <button type="submit" className="btn btn-primary">
                   AÑADIR DISPOSITIVO
