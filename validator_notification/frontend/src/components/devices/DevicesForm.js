@@ -68,9 +68,7 @@ export class DevicesForm extends Component {
       os_family,
       os_version,
     };
-    console.log(_device);
     this.props.addDevice(_device);
-    console.log(this.props.addDevice(_device));
     this.setState({
       name: "",
       tlf: "",
@@ -94,10 +92,6 @@ export class DevicesForm extends Component {
   };
 
   render() {
-    console.log(this.state);
-    console.log(mobileModel);
-    console.log(mobileVendor);
-
     return (
       <div>
         <br></br>
