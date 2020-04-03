@@ -5,6 +5,7 @@ from .utils.enumerations import platform, owner
 
 class Device(models.Model):
     name = models.CharField(max_length=50)
+    tlf = models.CharField(max_length=50, null=True)
     platform = models.CharField(max_length=50, null=False, choices=platform.tuples())
     owner = models.CharField(max_length=50, null=False, choices=owner.tuples())
     created_at = models.DateTimeField(auto_now_add=True)
