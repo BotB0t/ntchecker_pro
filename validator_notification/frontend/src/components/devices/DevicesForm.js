@@ -58,7 +58,7 @@ export class DevicesForm extends Component {
     } = this.state;
     platform = platform.value;
     owner = owner.value;
-    name = tlf + "-" + mobileModel + "-" + owner;
+    name = tlf;
     const _device = {
       name,
       tlf,
