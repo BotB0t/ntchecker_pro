@@ -51,14 +51,14 @@ class UserViewSet(viewsets.ModelViewSet):
     def _get_users(self, response):
         serialized_response = UserSerializer(instance=response, many=True)
         data_response = {
-            'data': serialized_response.instance
+            'users': serialized_response.instance
         }
         return Response(data_response, status=status.HTTP_200_OK)
 
-    def list(self):
+    def list(self, request):
         provider = self._get_provider(self.request)
         response = provider.get_user(username=self.request.user.username)
-        return response
+        return self._get_users(response)
 
     @action(methods=['get'], detail=False, url_path='all')
     def get_all_queryset(self, request):

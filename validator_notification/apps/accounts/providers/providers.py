@@ -9,7 +9,7 @@ class UserProvider:
         self.logger = get_instance_logger(self)
 
     def get_user(self, username: str):
-        return User.objects.filter(username=username)
+        return User.objects.filter(username=username).values()
         # return sorted(assemble_user_list(user), key=lambda x: x['username'], reverse=True)
 
     def get_user_all(self):

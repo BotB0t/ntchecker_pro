@@ -22,7 +22,7 @@ export const loadUser = () => (dispatch, getState) => {
     .then((res) => {
       dispatch({
         type: USER_LOADED,
-        payload: res.data[0],
+        payload: res.data.users[0],
       });
     })
     .catch((err) => {
