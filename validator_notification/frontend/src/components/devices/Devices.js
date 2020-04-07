@@ -7,7 +7,7 @@ export class Devices extends Component {
   static propTypes = {
     devices: PropTypes.array.isRequired,
     getDevices: PropTypes.func.isRequired,
-    deleteDevice: PropTypes.func.isRequired
+    deleteDevice: PropTypes.func.isRequired,
   };
 
   componentDidMount() {
@@ -17,25 +17,29 @@ export class Devices extends Component {
   render() {
     return (
       <Fragment>
-        <h1>Devices List</h1>
+        <h1>Listado Dispositivos</h1>
         <table className="table table-striped">
           <thead>
             <tr>
-              <th>NOMBRE</th>
-              <th>PLATAFORMA</th>
-              <th>PROPIETARIO</th>
-              <th></th>
+              <th>Nº TLF</th>
+              <th>PLAT.</th>
+              <th>PROP.</th>
+              <th>-</th>
             </tr>
           </thead>
           <tbody>
-            {this.props.devices.map(device => (
+            {this.props.devices.map((device) => (
               <tr key={device.id}>
-                <td>{device.name}</td>
+                <td>{device.tlf}</td>
                 <td>{device.platform}</td>
                 <td>{device.owner}</td>
                 <td>
                   <button
-                    onClick={this.props.deleteDevice.bind(this, device.id)}
+                    onClick={this.props.deleteDevice.bind(
+                      this,
+                      device.id,
+                      device.name
+                    )}
                     className="btn btn-danger btn-sm"
                   >
                     Delete
@@ -50,8 +54,8 @@ export class Devices extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  devices: state.devices.devices
+const mapStateToProps = (state) => ({
+  devices: state.devices.devices,
 });
 
 export default connect(mapStateToProps, { getDevices, deleteDevice })(Devices);

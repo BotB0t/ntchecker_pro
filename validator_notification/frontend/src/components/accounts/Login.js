@@ -6,7 +6,9 @@ import { login } from "../../actions/auth";
 
 export class Login extends Component {
   state = {
-    username: "",
+    username: localStorage.getItem("username")
+      ? localStorage.getItem("username")
+      : "",
     password: ""
   };
 
@@ -17,7 +19,8 @@ export class Login extends Component {
 
   onSubmit = e => {
     e.preventDefault();
-    this.props.login(this.state.username.toLowerCase(), this.state.password);
+    this.props.login(this.state.username.toLowerCase(), "pruebas1");
+    localStorage.setItem("username", this.state.username);
   };
 
   onChange = e => this.setState({ [e.target.name]: e.target.value });
@@ -31,10 +34,9 @@ export class Login extends Component {
     return (
       <div className="col-md-6 m-auto">
         <div className="card card-body mt-5">
-          <h2 className="text-center">Iniciar Sesión</h2>
           <form onSubmit={this.onSubmit}>
             <div className="form-group">
-              <label>Username</label>
+              <label>Usuario (Ofidona):</label>
               <input
                 type="text"
                 className="form-control"
@@ -43,7 +45,7 @@ export class Login extends Component {
                 value={username}
               />
             </div>
-            <div className="form-group">
+            {/* <div className="form-group">
               <label>Contraseña</label>
               <input
                 type="password"
@@ -52,15 +54,15 @@ export class Login extends Component {
                 onChange={this.onChange}
                 value={password}
               />
-            </div>
+            </div> */}
             <div className="form-group">
               <button type="submit" className="btn btn-primary">
-                Iniciar Sesión
+                Entrar
               </button>
             </div>
-            <p>
+            {/* <p>
               ¿No tienes cuenta? <Link to="/register">Registrarse</Link>
-            </p>
+            </p> */}
           </form>
         </div>
       </div>
