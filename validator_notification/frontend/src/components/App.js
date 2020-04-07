@@ -4,7 +4,7 @@ import {
   HashRouter as Router,
   Route,
   Switch,
-  Redirect
+  Redirect,
 } from "react-router-dom";
 
 import { transitions, positions, Provider as AlertProvider } from "react-alert";
@@ -16,6 +16,7 @@ import LayoutDevices from "./devices/LayoutDevices";
 import LayoutNotifications from "./notifications/LayoutNotifications";
 import Login from "./accounts/Login";
 import Register from "./accounts/Register";
+import About from "./about/About";
 import PrivateRoute from "./common/PrivateRoute";
 
 import { Provider } from "react-redux";
@@ -27,7 +28,7 @@ const alertOptions = {
   timeout: 3000,
   position: positions.TOP_CENTER,
   offset: "30px",
-  transition: transitions.SCALE
+  transition: transitions.SCALE,
 };
 
 class App extends Component {
@@ -57,6 +58,7 @@ class App extends Component {
                   />
                   {/* <Route exact path="/register" component={Register} /> */}
                   <Route exact path="/login" component={Login} />
+                  <Route exact pathc="/about" component={About} />
                 </Switch>
               </div>
             </Fragment>
