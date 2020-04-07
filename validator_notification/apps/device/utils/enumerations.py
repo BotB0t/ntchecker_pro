@@ -6,6 +6,11 @@ class platform(BaseEnum):
     IOS = 'iOS'
 
 
-class ownership(BaseEnum):
+class owner(BaseEnum):
     PERSONAL = 'Personal'
     EMPRESA = 'Empresa'
+
+
+class options_notification(BaseEnum):
+    OK = 'SI'
+    KO = 'NO'
