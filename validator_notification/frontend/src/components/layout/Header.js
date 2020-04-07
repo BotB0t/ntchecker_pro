@@ -29,6 +29,33 @@ export class Header extends Component {
       </ul>
     );
 
+    const adminLinks = (
+      // <li className="nav-item dropdown">
+      //   <hr></hr>
+      //   <a
+      //     className="nav-link dropdown-toggle"
+      //     href="#"
+      //     id="navbarDropdownMenuLink"
+      //     data-toggle="dropdown"
+      //     aria-haspopup="true"
+      //     aria-expanded="false"
+      //   >
+      //     Estadísticas
+      //   </a>
+      //   <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+      //     <Link className="dropdown-item nav-item" to="/about">
+      //       Dashboard
+      //     </Link>
+      //   </div>
+      // </li>
+      <li className="nav-item">
+        <hr></hr>
+        <Link to="/admin/dashboard" className="nav-link">
+          Dashboard
+        </Link>
+      </li>
+    );
+
     const guestLinks = (
       <ul className="navbar-nav ml-auto mt-2 mt-lg-0">
         {/* <li className="nav-item">
@@ -73,6 +100,7 @@ export class Header extends Component {
                 Listado Dispositivos
               </Link>
             </li>
+            {user ? (user.is_staff ? adminLinks : "") : ""}
             <li>
               <hr></hr>
             </li>
