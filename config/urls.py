@@ -30,6 +30,7 @@ router.register(r'notification/general', notification_views.GeneralNotificationV
                 basename="GeneralNotificationViewSet")
 router.register(r'notification', notification_views.IndividualNotificationViewSet,
                 basename="IndividualNotificationViewSet")
+router.register(r'auth/user', accounts_views.UserViewSet, basename="UserViewSet")
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -37,7 +38,7 @@ urlpatterns = [
     path('auth', include('knox.urls')),
     path('auth/register', accounts_views.Register.as_view()),
     path('auth/login', accounts_views.Login.as_view()),
-    path('auth/user', accounts_views.User.as_view()),
+    # path('auth/user', accounts_views.User.as_view()),
     path('auth/logout', knox_views.LogoutView.as_view(), name='knox_logout'),
     url(r'^', include(router.urls)),
 ]
