@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import {
   getNotifications,
-  updateNotification
+  updateNotification,
 } from "../../actions/notifications";
 
 import CardNotification from "./CardNotification";
@@ -14,7 +14,7 @@ export class Notifications extends Component {
     notifications_new: PropTypes.array.isRequired,
     notifications_read: PropTypes.array.isRequired,
     getNotifications: PropTypes.func.isRequired,
-    updateNotification: PropTypes.func.isRequired
+    updateNotification: PropTypes.func.isRequired,
   };
 
   componentDidMount() {
@@ -33,18 +33,18 @@ export class Notifications extends Component {
   render() {
     const noNotificationsMessage = (
       <div className="container">
-        <br></br> No hay notificaciones aun, ¿porque no{" "}
-        <Link to="/profile-info/devices">añades un dispositivo</Link>?{" "}
+        <br></br> No hay notificaciones aun, ¿puede ser que no tengas ningún{" "}
+        <Link to="/profile-info/devices">dispositivo en el perfil</Link>?{" "}
       </div>
     );
 
     const noNewNotifications = (
       <div className="container">
-        No hay notificaciones nuevas para validar, vuelve más tarde...
+        No hay nuevas notificaciones. ¡Estás al día!
       </div>
     );
     const noReadNotifications = (
-      <div className="container">No has contestado ninguna notificación</div>
+      <div className="container">No has contestado ninguna notificación.</div>
     );
 
     return (
@@ -91,7 +91,7 @@ export class Notifications extends Component {
               ) : (
                 <div></div>
               )}
-              {this.props.notifications_new.map(notification => (
+              {this.props.notifications_new.map((notification) => (
                 <div className="container" key={notification.id}>
                   <CardNotification
                     notification={notification}
@@ -113,7 +113,7 @@ export class Notifications extends Component {
               ) : (
                 <div></div>
               )}
-              {this.props.notifications_read.map(notification => (
+              {this.props.notifications_read.map((notification) => (
                 <div className="container" key={notification.id}>
                   <CardNotification
                     notification={notification}
@@ -130,12 +130,12 @@ export class Notifications extends Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   notifications_read: state.notifications.notifications_read,
-  notifications_new: state.notifications.notifications_new
+  notifications_new: state.notifications.notifications_new,
 });
 
 export default connect(mapStateToProps, {
   getNotifications,
-  updateNotification
+  updateNotification,
 })(Notifications);
