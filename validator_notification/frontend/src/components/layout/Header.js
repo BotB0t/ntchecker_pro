@@ -7,7 +7,7 @@ import { logout } from "../../actions/auth";
 export class Header extends Component {
   static propTypes = {
     auth: PropTypes.object.isRequired,
-    logout: PropTypes.func.isRequired
+    logout: PropTypes.func.isRequired,
   };
 
   render() {
@@ -73,6 +73,14 @@ export class Header extends Component {
                 Listado Dispositivos
               </Link>
             </li>
+            <li>
+              <hr></hr>
+            </li>
+            <li>
+              <Link to="/about" className="nav-link">
+                Contáctanos
+              </Link>
+            </li>
             {isAuthenticated ? authLinks : guestLinks}
           </ul>
         </div>
@@ -81,8 +89,8 @@ export class Header extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  auth: state.auth
+const mapStateToProps = (state) => ({
+  auth: state.auth,
 });
 
 export default connect(mapStateToProps, { logout })(Header);
