@@ -73,3 +73,6 @@ class UserViewSet(viewsets.ModelViewSet):
         response = provider.get_user_all()
         response = self._get_users(response)
         return response
+
+    def get_queryset(self):
+        return self.request.user
