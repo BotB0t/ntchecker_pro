@@ -18,37 +18,39 @@ export class Devices extends Component {
     return (
       <Fragment>
         <h1>Listado Dispositivos</h1>
-        <table className="table table-striped">
-          <thead>
-            <tr>
-              <th>Nº TLF</th>
-              <th>PLAT.</th>
-              <th>PROP.</th>
-              <th>-</th>
-            </tr>
-          </thead>
-          <tbody>
-            {this.props.devices.map((device) => (
-              <tr key={device.id}>
-                <td>{device.tlf}</td>
-                <td>{device.platform}</td>
-                <td>{device.owner}</td>
-                <td>
-                  <button
-                    onClick={this.props.deleteDevice.bind(
-                      this,
-                      device.id,
-                      device.name
-                    )}
-                    className="btn btn-danger btn-sm"
-                  >
-                    Delete
-                  </button>
-                </td>
+        <div className="table-responsive">
+          <table className="table table-striped">
+            <thead>
+              <tr>
+                <th>Nº TLF</th>
+                <th>PLAT.</th>
+                <th>PROP.</th>
+                <th>-</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {this.props.devices.map((device) => (
+                <tr key={device.id}>
+                  <td>{device.tlf}</td>
+                  <td>{device.platform}</td>
+                  <td>{device.owner}</td>
+                  <td>
+                    <button
+                      onClick={this.props.deleteDevice.bind(
+                        this,
+                        device.id,
+                        device.name
+                      )}
+                      className="btn btn-danger btn-sm"
+                    >
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </Fragment>
     );
   }

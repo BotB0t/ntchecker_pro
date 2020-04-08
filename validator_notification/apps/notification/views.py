@@ -66,13 +66,18 @@ class IndividualNotificationViewSet(viewsets.ModelViewSet):
     def get_all_queryset(self, request):
         self.permission_classes = [permissions.AllowAny]
         query_params = request.query_params
+        date_from = query_params.get('from')
+        date_to = query_params.get('to')
         provider = self._get_provider(request)
         if query_params.get('file') == 'csv':
             response = HttpResponse(content_type='text/csv')
             response['Content-Disposition'] = 'attachment; filename="export.csv"'
-            response = provider.get_csv(response)
+            response = provider.get_csv(response, date_from=date_from, date_to=date_to)
+        elif query_params.get('general_id'):
+            response = provider.get(date_from, date_to, query_params.get('general_id'))
+            response = self._get_individual_notifications(response)
         else:
-            response = provider.get()
+            response = provider.get(date_from, date_to)
             response = self._get_individual_notifications(response)
         return response
 
