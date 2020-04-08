@@ -4,12 +4,8 @@ import PropTypes from "prop-types";
 // import { getDevices, deleteDevice } from "../../actions/devices";
 
 export default class Table extends Component {
-  static propTypes = {
-    devices: PropTypes.array.isRequired,
-    getDevices: PropTypes.func.isRequired,
-    deleteDevice: PropTypes.func.isRequired,
-  };
-  
+  static propTypes = {};
+
   render() {
     return (
       <Fragment>

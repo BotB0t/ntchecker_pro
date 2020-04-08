@@ -15,13 +15,17 @@ class NotificationsProvider:
         notifications = list(user.individual_notifications.all())
         return sorted(assemble_notification_list(notifications), key=lambda x: x['created_at'], reverse=True)
 
-    def get(self, date_from: datetime = None, date_to: datetime = None):
+    def get(self, date_from: datetime = None, date_to: datetime = None, general_id: int = None):
         import warnings
         warnings.filterwarnings("ignore")
-        # TODO: comprbación de la fecha
+        # TODO: comprobación de la fecha
         if date_from is not None and date_to is not None:
             notifications = list(IndividualNotification.objects.filter(
                 created_at__range=[date_from, date_to]))  # (date_to + timedelta(days=1))]))
+        elif general_id is not None:
+            notifications = list(IndividualNotification.objects.filter(
+                general=general_id
+            ))
         else:
             notifications = list(IndividualNotification.objects.all())
         return sorted(assemble_notification_list(notifications), key=lambda x: x['created_at'], reverse=True)

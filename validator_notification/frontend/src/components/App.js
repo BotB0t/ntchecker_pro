@@ -14,6 +14,7 @@ import Header from "./layout/Header";
 import Alerts from "./layout/Alerts";
 import LayoutDevices from "./devices/LayoutDevices";
 import LayoutNotifications from "./notifications/LayoutNotifications";
+import LayoutGeneral from "./dashboard/LayoutGeneral";
 import LayoutDashboard from "./dashboard/LayoutDashboard";
 import Login from "./accounts/Login";
 import Register from "./accounts/Register";
@@ -57,14 +58,18 @@ class App extends Component {
                     path="/"
                     component={LayoutNotifications}
                   />
-                  {/* <Route exact path="/register" component={Register} /> */}
-                  <Route exact path="/login" component={Login} />
-                  <Route exact path="/about" component={About} />
                   <PrivateRoute
                     exact
                     path="/data/dashboard"
+                    component={LayoutGeneral}
+                  />
+                  <PrivateRoute
+                    path="/data/dashboard/:id"
                     component={LayoutDashboard}
                   />
+                  {/* <Route exact path="/register" component={Register} /> */}
+                  <Route exact path="/login" component={Login} />
+                  <Route exact path="/about" component={About} />
                 </Switch>
               </div>
             </Fragment>
