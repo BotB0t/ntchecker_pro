@@ -50,7 +50,7 @@ export class Header extends Component {
       // </li>
       <li className="nav-item">
         <hr></hr>
-        <Link to="/admin/dashboard" className="nav-link">
+        <Link to="/data/dashboard" className="nav-link">
           Dashboard
         </Link>
       </li>
