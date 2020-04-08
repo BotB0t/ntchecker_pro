@@ -9,25 +9,25 @@ export class Login extends Component {
     username: localStorage.getItem("username")
       ? localStorage.getItem("username")
       : "",
-    password: ""
+    password: "",
   };
 
   static propTypes = {
     login: PropTypes.func.isRequired,
-    isAuthenticated: PropTypes.bool
+    isAuthenticated: PropTypes.bool,
   };
 
-  onSubmit = e => {
+  onSubmit = (e) => {
     e.preventDefault();
     this.props.login(this.state.username.toLowerCase(), "pruebas1");
     localStorage.setItem("username", this.state.username);
   };
 
-  onChange = e => this.setState({ [e.target.name]: e.target.value });
+  onChange = (e) => this.setState({ [e.target.name]: e.target.value });
 
   render() {
     if (this.props.isAuthenticated) {
-      return <Redirect to="/data/dashboard" />;
+      return <Redirect to="/" />;
     }
 
     const { username, password } = this.state;
@@ -70,8 +70,8 @@ export class Login extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  isAuthenticated: state.auth.isAuthenticated
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated,
 });
 
 export default connect(mapStateToProps, { login })(Login);
