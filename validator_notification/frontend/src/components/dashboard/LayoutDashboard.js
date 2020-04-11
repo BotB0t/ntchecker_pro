@@ -2,7 +2,7 @@ import React, { Component, Fragment } from "react";
 import TotalTable from "./TotalTable";
 import Table from "./Table";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import PropTypes from "prop-types";
 import { getIndividualNotifications } from "../../actions/data";
 
@@ -23,7 +23,7 @@ function getUsers(notifications) {
   var users = [];
   notifications.map(function (notification) {
     user = notification.user;
-    if (!containsUser(user.username, users)) {
+    if (!containsUser(user.username, users) && user.is_active) {
       users.push(user);
     }
   });
@@ -37,6 +37,7 @@ class LayoutDashboard extends Component {
     super(props);
     this.state = {
       general_id: this.props.match.params.id,
+      redirect: false
     };
   }
 
@@ -49,22 +50,36 @@ class LayoutDashboard extends Component {
     this.props.getIndividualNotifications({
       general_id: this.state.general_id,
     });
+    console.log("Se carga")
+  }
+
+  setRedirect = () => {
+    this.setState({
+      redirect: true
+    })
+  }
+  renderRedirect = () => {
+    if (this.state.redirect) {
+      return <Redirect to='/data/dashboard' />
+    }
   }
 
   render() {
-    // console.log(this.state);
-    // console.log(this.props);
-    var users = [];
     return (
       <Fragment>
-        <div>
-          <Link to="/data/dashboard">Back</Link>
-        </div>
         <br></br>
-        <div className="container"></div>
+        {this.renderRedirect()}
+        <button className="btn btn-link" onClick={this.setRedirect}>Atrás</button>
+        <br></br>
         <div className="container">
           {this.props.individualNotifications.length > 0 ? (
-            <TotalTable notifications={this.props.individualNotifications} />
+            <div className="container">
+              <div className="container">
+                <h2>{this.props.individualNotifications[0].general.title}</h2>
+              </div>
+              <hr></hr>
+              <TotalTable notifications={this.props.individualNotifications} />
+            </div>
           ) : (
               <div></div>
             )}
