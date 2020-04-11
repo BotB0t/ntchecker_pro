@@ -6,6 +6,32 @@ import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { getIndividualNotifications } from "../../actions/data";
 
+
+function containsUser(username, list) {
+  var i;
+  for (i = 0; i < list.length; i++) {
+      if (list[i].username === username) {
+          return true;
+      }
+  }
+
+  return false;
+}
+
+function getUsers(notifications){
+  var user;
+  var users = [];
+  notifications.map(function (notification) {
+    user = notification.user;
+    if(!containsUser(user.username, users)){
+      users.push(user);
+    }
+  });
+  return users;
+}
+
+
+
 class LayoutDashboard extends Component {
   constructor(props) {
     super(props);
@@ -26,8 +52,9 @@ class LayoutDashboard extends Component {
   }
 
   render() {
-    console.log(this.state);
-    console.log(this.props);
+    // console.log(this.state);
+    // console.log(this.props);
+    var users = [];
     return (
       <Fragment>
         <div>
@@ -37,10 +64,14 @@ class LayoutDashboard extends Component {
         <div className="container"></div>
         <div className="container">
           <TotalTable />
-        </div>
+        </div>  
         <hr></hr>
         <div className="container">
-          <Table />
+          {this.props.individualNotifications.length > 0 ? (
+            <Table notifications={this.props.individualNotifications} users = {getUsers(this.props.individualNotifications)}/>
+          ) : (
+            <div></div>
+          )}
         </div>
       </Fragment>
     );
