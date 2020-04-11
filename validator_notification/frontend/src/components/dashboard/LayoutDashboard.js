@@ -10,20 +10,20 @@ import { getIndividualNotifications } from "../../actions/data";
 function containsUser(username, list) {
   var i;
   for (i = 0; i < list.length; i++) {
-      if (list[i].username === username) {
-          return true;
-      }
+    if (list[i].username === username) {
+      return true;
+    }
   }
 
   return false;
 }
 
-function getUsers(notifications){
+function getUsers(notifications) {
   var user;
   var users = [];
   notifications.map(function (notification) {
     user = notification.user;
-    if(!containsUser(user.username, users)){
+    if (!containsUser(user.username, users)) {
       users.push(user);
     }
   });
@@ -63,15 +63,19 @@ class LayoutDashboard extends Component {
         <br></br>
         <div className="container"></div>
         <div className="container">
-          <TotalTable />
-        </div>  
+          {this.props.individualNotifications.length > 0 ? (
+            <TotalTable notifications={this.props.individualNotifications} />
+          ) : (
+              <div></div>
+            )}
+        </div>
         <hr></hr>
         <div className="container">
           {this.props.individualNotifications.length > 0 ? (
-            <Table notifications={this.props.individualNotifications} users = {getUsers(this.props.individualNotifications)}/>
+            <Table notifications={this.props.individualNotifications} users={getUsers(this.props.individualNotifications)} />
           ) : (
-            <div></div>
-          )}
+              <div></div>
+            )}
         </div>
       </Fragment>
     );
