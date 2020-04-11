@@ -3,7 +3,7 @@ import React, { useState, Fragment } from "react";
 function getStats(username, notifications) {
   var ok = 0, ko = 0, nan = 0;
   notifications.map(function (notification) {
-    if(notification.user.username == username){
+    if (notification.user.username == username) {
       if (notification.status == "NEW") nan = nan + 1;
       else {
         if (notification.option_selected == "YES") ok = ok + 1;
@@ -11,7 +11,7 @@ function getStats(username, notifications) {
       }
     }
   });
-  return {ok, ko, nan};
+  return { ok, ko, nan };
 };
 
 export default function Table(props) {
@@ -39,7 +39,7 @@ export default function Table(props) {
 
           <tbody>
             {users.map((user) => {
-              const {ok, ko, nan} = getStats(user.username, notifications);
+              const { ok, ko, nan } = getStats(user.username, notifications);
               return (
                 <tr
                   // data-toggle="collapse"
@@ -47,7 +47,7 @@ export default function Table(props) {
                   // className="accordion-toggle"
                   key={user.username}
                 >
-                  {console.log(user.username + ": " + ok + " - " + ko + " - " + nan)}
+                  {/* {console.log(user.username + ": " + ok + " - " + ko + " - " + nan)} */}
                   <td>{user.username}</td>
                   <td>{ok}</td>
                   <td>{ko}</td>
