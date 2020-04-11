@@ -72,7 +72,8 @@ class IndividualNotificationViewSet(viewsets.ModelViewSet):
         if query_params.get('file') == 'csv':
             response = HttpResponse(content_type='text/csv')
             response['Content-Disposition'] = 'attachment; filename="export.csv"'
-            response = provider.get_csv(response, date_from=date_from, date_to=date_to)
+            response = provider.get_csv(response, date_from=date_from, date_to=date_to,
+                                        general_id=query_params.get('general_id'))
         elif query_params.get('general_id'):
             response = provider.get(date_from, date_to, query_params.get('general_id'))
             response = self._get_individual_notifications(response)
