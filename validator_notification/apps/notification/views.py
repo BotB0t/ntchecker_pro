@@ -30,13 +30,16 @@ class GeneralNotificationViewSet(viewsets.ModelViewSet):
         logger.info('GeneralNotification: Create: Individual Notifications to create: %s' % len(devices))
         for device in devices:
             user = device.user
-            IndividualNotification.objects.create(
-                general=genetal_notification,
-                user=user,
-                device=device,
-                option_selected=''
-            )
-            logger.info('GeneralNotification: IndividualNotification: Create: User: %s' % user.username)
+            if user.is_active:
+                IndividualNotification.objects.create(
+                    general=genetal_notification,
+                    user=user,
+                    device=device,
+                    option_selected=''
+                )
+                logger.info('GeneralNotification: IndividualNotification: Create: True User: %s' % user.username)
+            else:
+                logger.info('GeneralNotification: IndividualNotification: Create: False User: %s' % user.username)
         logger.info('GeneralNotification: Create: Finished')
 
 
