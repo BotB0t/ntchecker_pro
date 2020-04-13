@@ -2,7 +2,7 @@ import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
-import { getGeneralNotificationsAll } from "../../actions/data";
+import { getGeneralNotificationsAll } from "../../actions/generalNotifications";
 
 export class LayoutGeneral extends Component {
   static propTypes = {

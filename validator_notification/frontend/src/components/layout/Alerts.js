@@ -19,13 +19,15 @@ export class Alerts extends Component {
       if (error.msg.password)
         alert.error("PASSWORD: " + error.msg.password.join());
       if (error.msg.name) alert.error("NOMBRE: " + error.msg.name.join());
+      if (error.msg.tlf) alert.error("TLF: " + error.msg.name.join());
       if (error.msg.platform)
         alert.error("PLATAFORMA: " + error.msg.platform.join());
       if (error.msg.owner)
         alert.error("PROPIETARIO: " + error.msg.owner.join());
       if (error.msg.deleteDevice) alert.error(error.msg.deleteDevice.join());
-      if (error.msg.deleteDevice) alert.error(error.msg.deleteDevice.join());
+      if (error.msg.deleteGeneralNotification) alert.error(error.msg.deleteGeneralNotification.join());
       if (error.msg.addDevice) alert.success(error.msg.addDevice.join());
+      if (error.msg.title) alert.error("TITULO: " + error.msg.title.join());
       if (error.msg.non_field_errors)
         alert.error(error.msg.non_field_errors.join());
     }
@@ -33,9 +35,11 @@ export class Alerts extends Component {
     if (message !== prevProps.message) {
       if (message.deleteDevice) alert.success(message.deleteDevice);
       if (message.addDevice) alert.success(message.addDevice);
+      if (message.deleteGeneralNotification) alert.success(message.deleteGeneralNotification);
       if (message.addDeviceFailed) alert.error(message.addDeviceFailed);
       if (message.passwordNotMatch) alert.error(message.passwordNotMatch);
       if (message.updateNotification) alert.success(message.updateNotification);
+      if (message.addGeneralNotification) alert.success(message.addGeneralNotification);
     }
   }
 

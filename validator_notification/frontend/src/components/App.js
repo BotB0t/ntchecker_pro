@@ -16,6 +16,7 @@ import LayoutDevices from "./devices/LayoutDevices";
 import LayoutNotifications from "./notifications/LayoutNotifications";
 import LayoutGeneral from "./dashboard/LayoutGeneral";
 import LayoutDashboard from "./dashboard/LayoutDashboard";
+import LayoutFormNotifications from "./notifications/LayoutFormNotifications";
 import Login from "./accounts/Login";
 import Register from "./accounts/Register";
 import About from "./about/About";
@@ -66,6 +67,10 @@ class App extends Component {
                   <PrivateRoute
                     path="/data/dashboard/:id"
                     component={LayoutDashboard}
+                  />
+                  <PrivateRoute
+                    path="/data/notification/general"
+                    component={LayoutFormNotifications}
                   />
                   {/* <Route exact path="/register" component={Register} /> */}
                   <Route exact path="/login" component={Login} />
