@@ -56,6 +56,9 @@ export class GeneralNotificationForm extends Component {
 								onChange={this.onChange}
 								value={this.state.url}
 							/>
+							<small id="passwordHelpBlock" className="form-text text-muted">
+								Hay que poner la url de la publicación de <a href="https://activo2.mercadona.com/#/contents/mercadona-publications" target="_bank">Activo2</a>
+							</small>
 						</div>
 						<div className="form-group">
 							<button type="submit" className="btn btn-primary">
