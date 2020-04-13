@@ -65,7 +65,7 @@ export class GeneralNotifications extends Component {
 }
 
 const mapStateToProps = (state) => (
-	console.log(state),
+	// console.log(state),
 	{
 		generalNotifications: state.generalNotifications.generalNotifications,
 	}

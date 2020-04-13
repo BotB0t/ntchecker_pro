@@ -61,7 +61,7 @@ export const deleteGeneralNotification = (id, title) => (dispatch, getState) => 
 			});
 		})
 		.catch(err => {
-			console.log(err);
+			// console.log(err);
 			dispatch(returnErrors(err.response.data, err.response.status));
 			dispatch({
 				type: DELETE_GENERAL_NOTIFICATION_FAIL
