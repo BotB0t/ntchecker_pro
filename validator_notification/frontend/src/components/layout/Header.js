@@ -30,29 +30,15 @@ export class Header extends Component {
     );
 
     const adminLinks = (
-      // <li className="nav-item dropdown">
-      //   <hr></hr>
-      //   <a
-      //     className="nav-link dropdown-toggle"
-      //     href="#"
-      //     id="navbarDropdownMenuLink"
-      //     data-toggle="dropdown"
-      //     aria-haspopup="true"
-      //     aria-expanded="false"
-      //   >
-      //     Estadísticas
-      //   </a>
-      //   <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-      //     <Link className="dropdown-item nav-item" to="/about">
-      //       Dashboard
-      //     </Link>
-      //   </div>
-      // </li>
       <li className="nav-item">
         <hr></hr>
         <Link to="/data/dashboard" className="nav-link">
           Dashboard
         </Link>
+        <Link to="/data/notification/general" className="nav-link">
+          Formulario Notificaciones
+        </Link>
+        <hr></hr>
       </li>
     );
 
@@ -101,9 +87,6 @@ export class Header extends Component {
               </Link>
             </li>
             {user ? (user.is_staff ? adminLinks : "") : ""}
-            <li>
-              <hr></hr>
-            </li>
             <li>
               <Link to="/about" className="nav-link">
                 Contáctanos
