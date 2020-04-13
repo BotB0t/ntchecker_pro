@@ -28,7 +28,7 @@ export class GeneralNotificationForm extends Component {
 		return (
 			<div className="container">
 				<div className="card card-body mt-4 mb-4">
-					<h1>AÑADIR NOTIFICAION GENERAL</h1>
+					<h1>AÑADIR NOTIFICACION GENERAL</h1>
 					<form onSubmit={this.onSubmit}>
 						<div className="form-group">
 							<label>
