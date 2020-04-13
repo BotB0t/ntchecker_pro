@@ -50,6 +50,7 @@ export class GeneralNotifications extends Component {
 												generalNotification.title
 											)}
 											className="btn btn-danger btn-sm"
+											disabled="true"
 										>
 											Delete
                     </button>
