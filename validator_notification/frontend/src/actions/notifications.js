@@ -2,7 +2,10 @@ import axios from "axios";
 import { createMessage, returnErrors } from "./messages";
 import { tokenConfig } from "./auth";
 
-import { GET_NOTIFICATION, UPDATE_NOTIFICATION } from "./types";
+import {
+  GET_NOTIFICATION,
+  UPDATE_NOTIFICATION,
+} from "./types";
 
 // GET NOTIFICATIONS BY USER
 export const getNotifications = () => (dispatch, getState) => {

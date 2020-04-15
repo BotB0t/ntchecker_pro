@@ -29,6 +29,19 @@ export class Header extends Component {
       </ul>
     );
 
+    const adminLinks = (
+      <li className="nav-item">
+        <hr></hr>
+        <Link to="/data/dashboard" className="nav-link">
+          Dashboard
+        </Link>
+        <Link to="/data/notification/general" className="nav-link">
+          Formulario Notificaciones
+        </Link>
+        <hr></hr>
+      </li>
+    );
+
     const guestLinks = (
       <ul className="navbar-nav ml-auto mt-2 mt-lg-0">
         {/* <li className="nav-item">
@@ -73,9 +86,7 @@ export class Header extends Component {
                 Listado Dispositivos
               </Link>
             </li>
-            <li>
-              <hr></hr>
-            </li>
+            {user ? (user.is_staff ? adminLinks : "") : ""}
             <li>
               <Link to="/about" className="nav-link">
                 Contáctanos

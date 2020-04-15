@@ -23,8 +23,18 @@ export class About extends Component {
                         aabrilfl@mercadona.es
                       </a>
                     </li>
-                    <li>Tlf. 683 48 25 73</li>
-                    <li>Ext. 28511</li>
+                    <li>
+                      Tlf.{" "}
+                      <a href="tel:683482573" target="_blank">
+                        683 48 25 73
+                      </a>
+                    </li>
+                    <li>
+                      Ext.{" "}
+                      <a href="tel:28511" target="_blank">
+                        28511
+                      </a>
+                    </li>
                   </ul>
                 </div>
               </div>

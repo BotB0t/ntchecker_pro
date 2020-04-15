@@ -24,3 +24,4 @@ class IndividualNotification(models.Model):
                                        default=status_notification.NEW.value, null=True)
     updated_at = models.DateTimeField(auto_now=True)
     created_at = models.DateTimeField(auto_now_add=True)
+    info = models.CharField(max_length=350, null=True)

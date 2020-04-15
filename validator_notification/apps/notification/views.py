@@ -30,13 +30,16 @@ class GeneralNotificationViewSet(viewsets.ModelViewSet):
         logger.info('GeneralNotification: Create: Individual Notifications to create: %s' % len(devices))
         for device in devices:
             user = device.user
-            IndividualNotification.objects.create(
-                general=genetal_notification,
-                user=user,
-                device=device,
-                option_selected=''
-            )
-            logger.info('GeneralNotification: IndividualNotification: Create: User: %s' % user.username)
+            if user.is_active:
+                IndividualNotification.objects.create(
+                    general=genetal_notification,
+                    user=user,
+                    device=device,
+                    option_selected=''
+                )
+                logger.info('GeneralNotification: IndividualNotification: Create: True User: %s' % user.username)
+            else:
+                logger.info('GeneralNotification: IndividualNotification: Create: False User: %s' % user.username)
         logger.info('GeneralNotification: Create: Finished')
 
 
@@ -66,13 +69,19 @@ class IndividualNotificationViewSet(viewsets.ModelViewSet):
     def get_all_queryset(self, request):
         self.permission_classes = [permissions.AllowAny]
         query_params = request.query_params
+        date_from = query_params.get('from')
+        date_to = query_params.get('to')
         provider = self._get_provider(request)
         if query_params.get('file') == 'csv':
             response = HttpResponse(content_type='text/csv')
             response['Content-Disposition'] = 'attachment; filename="export.csv"'
-            response = provider.get_csv(response)
+            response = provider.get_csv(response, date_from=date_from, date_to=date_to,
+                                        general_id=query_params.get('general_id'))
+        elif query_params.get('general_id'):
+            response = provider.get(date_from, date_to, query_params.get('general_id'))
+            response = self._get_individual_notifications(response)
         else:
-            response = provider.get()
+            response = provider.get(date_from, date_to)
             response = self._get_individual_notifications(response)
         return response
 
