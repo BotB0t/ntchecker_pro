@@ -9,27 +9,26 @@ export default function CardGeneralNotification(props) {
 	return (
 		<div className="col-sm-4" key={general.id}>
 			<Link to={`/data/dashboard/${general.id}`}>
-				<div className="card">
-					<div className="card-body">
-						<blockquote className="blockquote mb-0">
-							<h4 className="card-title">{general.title}</h4>
-							<small className="text-muted">
-								{new Intl.DateTimeFormat("es-ES", {
-									year: "numeric",
-									month: "long",
-									day: "numeric",
-									hour: "numeric",
-									minute: "numeric",
-									second: "numeric",
-								}).format(new Date(general.created_at))}
-							</small>
-						</blockquote>
-						<blockquote className="blockquote mb-0">
-							<small className="text-muted">
-								<TotalTable notifications={individualNotifications} />
-							</small>
-						</blockquote>
+				<div className="card rounded">
+					<div className="card-header">
+						<small className="text-muted">
+							{new Intl.DateTimeFormat("es-ES", {
+								year: "numeric",
+								month: "long",
+								day: "numeric",
+								hour: "numeric",
+								minute: "numeric",
+							}).format(new Date(general.created_at))}
+						</small>
 					</div>
+					<div className="card-body text-secondary">
+						<h4 className="card-title">
+							<b>{general.title}</b>
+						</h4>
+					</div>
+					<small className="text-muted">
+						<TotalTable notifications={individualNotifications} />
+					</small>
 				</div>
 				<br></br>
 			</Link>

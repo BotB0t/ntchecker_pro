@@ -20,7 +20,7 @@ export function TotalTable(props) {
     <Fragment>
       <div className="table-responsive">
         <table
-          className="table table-striped table-sm"
+          className="table table-sm"
           style={{
             textAlign: "center",
           }}
