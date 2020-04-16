@@ -50,7 +50,6 @@ class LayoutDashboard extends Component {
     this.props.getIndividualNotifications({
       general_id: this.state.general_id,
     });
-    console.log("Se carga")
   }
 
   setRedirect = () => {
@@ -78,6 +77,7 @@ class LayoutDashboard extends Component {
                 <h2>{this.props.individualNotifications[0].general.title}</h2>
               </div>
               <hr></hr>
+              <h3>Total</h3>
               <TotalTable notifications={this.props.individualNotifications} />
             </div>
           ) : (
