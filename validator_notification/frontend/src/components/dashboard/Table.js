@@ -52,6 +52,9 @@ export default function Table(props) {
                   <td>{ok}</td>
                   <td>{ko}</td>
                   <td>{nan}</td>
+                  <td style={{
+                    textAlign: "left",
+                  }}>{info}</td>
                 </tr>
               );
             })}
