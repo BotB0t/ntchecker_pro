@@ -18,10 +18,9 @@ export function TotalTable(props) {
 
   return (
     <Fragment>
-      <h3>Resumen de la notificación</h3>
       <div className="table-responsive">
         <table
-          className="table table-striped table-sm"
+          className="table table-sm"
           style={{
             textAlign: "center",
           }}
