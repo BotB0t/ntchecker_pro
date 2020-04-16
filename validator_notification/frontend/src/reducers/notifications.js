@@ -1,15 +1,22 @@
 import {
   GET_NOTIFICATION,
-  UPDATE_NOTIFICATION
+  UPDATE_NOTIFICATION,
+  GET_NOTIFICATION_ALL
 } from "../actions/types.js";
 
 const initialState = {
+  notifications: [],
   notifications_new: [],
   notifications_read: []
 };
 
 export default function (state = initialState, action) {
   switch (action.type) {
+    case GET_NOTIFICATION_ALL:
+      return {
+        ...state,
+        notifications: action.payload
+      };
     case GET_NOTIFICATION:
       const notifications = action.payload;
       var notifications_new = [],
