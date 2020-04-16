@@ -2,6 +2,7 @@ import React, { useState, Fragment } from "react";
 
 function getStats(username, notifications) {
   var ok = 0, ko = 0, nan = 0;
+  var info = '';
   notifications.map(function (notification) {
     if (notification.user.username == username) {
       if (notification.status == "NEW") nan = nan + 1;
@@ -9,9 +10,12 @@ function getStats(username, notifications) {
         if (notification.option_selected == "YES") ok = ok + 1;
         else if (notification.option_selected == "NO") ko = ko + 1;
       }
+
+      if (notification.info)
+        info = info + notification.info;
     }
   });
-  return { ok, ko, nan };
+  return { ok, ko, nan, info };
 };
 
 export default function Table(props) {
@@ -34,12 +38,13 @@ export default function Table(props) {
               <th className="table-success">OK</th>
               <th className="table-danger">KO</th>
               <th className="table-light">-</th>
+              <th className="table-light">Info</th>
             </tr>
           </thead>
 
           <tbody>
             {users.map((user) => {
-              const { ok, ko, nan } = getStats(user.username, notifications);
+              const { ok, ko, nan, info } = getStats(user.username, notifications);
               return (
                 <tr
                   // data-toggle="collapse"
