@@ -27,9 +27,10 @@ export default function Table(props) {
       <h3>Glosario</h3>
       <div className="table-responsive">
         <table
-          className="table table-sm"
+          className="table table-sm table-hover"
           style={{
             textAlign: "center",
+            cursor: "pointer",
           }}
         >
           <thead>

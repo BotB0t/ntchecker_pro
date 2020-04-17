@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from "react";
+import Loader from 'react-loader-spinner'
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import TotalTable from "./TotalTable";
@@ -40,20 +41,33 @@ export class LayoutGeneral extends Component {
         <hr></hr>
         <div className="container">
           <h3>Notificaciones Lanzadas</h3>
-          <div className="row">
-            {generalNotifications.length > 0 && notifications.length > 0 ?
-              generalNotifications.map((general) => {
-                const individualNotifications = notifications.filter(
-                  notification => notification.general.id == general.id);
+          <div className="row" style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center"
+          }}>
+            {
+              generalNotifications.length > 0 && notifications.length > 0 ?
+                generalNotifications.map((general) => {
+                  const individualNotifications = notifications.filter(
+                    notification => notification.general.id == general.id);
 
-                return (
-                  <CardGeneralNotification
-                    key={general.id}
-                    generalNotification={general}
-                    individualNotifications={individualNotifications}
-                  />
-                )
-              }) : <div>Cargando...</div>}
+                  return (
+                    <CardGeneralNotification
+                      key={general.id}
+                      generalNotification={general}
+                      individualNotifications={individualNotifications}
+                    />
+                  )
+                }) :
+                <Loader
+                  type="Oval"
+                  color="#9FD574"
+                  height={50}
+                  width={50}
+                  timeout={10000} //10 secs
+                />
+            }
           </div>
         </div>
       </Fragment>
