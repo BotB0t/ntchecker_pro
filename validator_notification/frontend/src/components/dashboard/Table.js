@@ -43,8 +43,8 @@ function getData(notificationsAll, users) {
 }
 
 const defaultSorted = [{
-  dataField: 'username',
-  order: 'desc'
+  dataField: 'user.username',
+  order: 'asc'
 }];
 
 const columns = [
@@ -96,7 +96,6 @@ export default function Table(props) {
         keyField='id'
         data={notificationsData}
         columns={columns}
-        defaultSorted={defaultSorted}
         exportCSV
       >
         {
@@ -106,6 +105,7 @@ export default function Table(props) {
               <ExportCSVButton {...props.csvProps}>Descargar CSV</ExportCSVButton>
               <BootstrapTable
                 {...props.baseProps}
+                defaultSorted={defaultSorted}
                 hover
                 condensed
                 bordered={false}
