@@ -28,48 +28,65 @@ export class LayoutGeneral extends Component {
 
     return (
       <Fragment>
-        <div className="container">
-          <h3>Total</h3>
-          {notifications.length > 0 ? (
-            <div className="container">
-              <TotalTable notifications={notifications} />
-            </div>
-          ) : (
-              <div></div>
-            )}
-        </div>
-        <hr></hr>
-        <div className="container">
-          <h3>Notificaciones Lanzadas</h3>
-          <div className="row" style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center"
-          }}>
-            {
-              generalNotifications.length > 0 && notifications.length > 0 ?
-                generalNotifications.map((general) => {
-                  const individualNotifications = notifications.filter(
-                    notification => notification.general.id == general.id);
+        {
+          generalNotifications.length > 0 && notifications.length > 0 ?
+            (
+              <div className="container">
+                <br></br>
+                <div className="container">
+                  <h3>Total</h3>
+                  <TotalTable notifications={notifications} />
+                </div>
+                <hr></hr>
+                <div className="container">
+                  <h3>Notificaciones Lanzadas</h3>
+                  <div className="row" style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center"
+                  }}
+                  >
+                    {generalNotifications.map((general) => {
+                      const individualNotifications = notifications.filter(
+                        notification => notification.general.id == general.id);
 
-                  return (
-                    <CardGeneralNotification
-                      key={general.id}
-                      generalNotification={general}
-                      individualNotifications={individualNotifications}
-                    />
-                  )
-                }) :
-                <Loader
-                  type="Oval"
-                  color="#9FD574"
-                  height={50}
-                  width={50}
-                  timeout={10000} //10 secs
-                />
-            }
-          </div>
-        </div>
+                      return (
+                        <CardGeneralNotification
+                          key={general.id}
+                          generalNotification={general}
+                          individualNotifications={individualNotifications}
+                        />
+                      )
+                    })}
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <div className="container">
+                <br></br>
+                <div className="container" style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center"
+                }}>
+                  <h3>Recibiendo datos...</h3>
+                </div>
+                <div className="container" style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center"
+                }}>
+                  <Loader
+                    type="Oval"
+                    color="#9FD574"
+                    height={50}
+                    width={50}
+                    timeout={10000} //10 secs
+                  />
+                </div>
+              </div>
+            )
+        }
       </Fragment>
     );
   }
