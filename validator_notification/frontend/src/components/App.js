@@ -72,6 +72,10 @@ class App extends Component {
                     path="/data/notification/general"
                     component={LayoutFormNotifications}
                   />
+                  <PrivateRoute
+                    path="/data/notification/:id/details"
+                    component={LayoutFormNotifications}
+                  />
                   {/* <Route exact path="/register" component={Register} /> */}
                   <Route exact path="/login" component={Login} />
                   <Route exact path="/about" component={About} />

@@ -1,9 +1,12 @@
 import React, { useState, Fragment } from "react";
+import BootstrapTable from 'react-bootstrap-table-next';
+import ToolkitProvider, { CSVExport } from 'react-bootstrap-table2-toolkit';
 
-function getStats(username, notifications) {
-  var ok = 0, ko = 0, nan = 0;
+function getStats(username, notificationsAll) {
+  var ok = 0, ko = 0, nan = 0, id = -1;
   var info = '';
-  notifications.map(function (notification) {
+  var notifications = [];
+  notificationsAll.map(function (notification) {
     if (notification.user.username == username) {
       if (notification.status == "NEW") nan = nan + 1;
       else {
@@ -13,86 +16,104 @@ function getStats(username, notifications) {
 
       if (notification.info)
         info = info + notification.info;
+
+      id = notification.user.id;
+      notifications.push(notification);
     }
   });
-  return { ok, ko, nan, info };
+  return { id, ok, ko, nan, info, notifications };
 };
+
+function getData(notificationsAll, users) {
+  var notificationsData = [];
+
+  users.map((user) => {
+    const { id, ok, ko, nan, info, notifications } = getStats(user.username, notificationsAll)
+    notificationsData.push({
+      id: id,
+      user: user,
+      ok: ok,
+      ko: ko,
+      nan: nan,
+      info: info,
+      notifications: notifications
+    })
+  });
+  return notificationsData;
+}
+
+const defaultSorted = [{
+  dataField: 'username',
+  order: 'desc'
+}];
+
+const columns = [
+  {
+    dataField: 'user.username',
+    text: 'Ususario',
+    sort: true
+  },
+  {
+    dataField: 'ok',
+    text: 'OK',
+    sort: true,
+    align: 'center',
+    headerStyle: { backgroundColor: '#c9ebbe' }
+  },
+  {
+    dataField: 'ko',
+    text: 'KO',
+    sort: true,
+    align: 'center',
+    headerStyle: { backgroundColor: '#ffb8c8' }
+  },
+  {
+    dataField: 'nan',
+    text: '-',
+    sort: true,
+    align: 'center',
+    headerStyle: { backgroundColor: '#DEE2E6' }
+  },
+  {
+    dataField: 'info',
+    text: 'Información',
+    sort: true
+  },
+]
+
+
+const { ExportCSVButton } = CSVExport;
 
 export default function Table(props) {
   const [notifications] = useState(props.notifications);
   const [users] = useState(props.users);
+  const notificationsData = getData(notifications, users)
 
   return (
     <Fragment>
       <h3>Glosario</h3>
-      <div className="table-responsive">
-        <table
-          className="table table-sm table-hover"
-          style={{
-            textAlign: "center",
-            cursor: "pointer",
-          }}
-        >
-          <thead>
-            <tr>
-              <th>Usuario</th>
-              <th className="table-success">OK</th>
-              <th className="table-danger">KO</th>
-              <th className="table-light">-</th>
-              <th className="table-light">Info</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            {users.map((user) => {
-              const { ok, ko, nan, info } = getStats(user.username, notifications);
-              return (
-                <tr
-                  // data-toggle="collapse"
-                  // data-target="#devices-list"
-                  // className="accordion-toggle"
-                  key={user.username}
-                >
-                  {/* {console.log(user.username + ": " + ok + " - " + ko + " - " + nan)} */}
-                  <td>{user.username}</td>
-                  <td>{ok}</td>
-                  <td>{ko}</td>
-                  <td>{nan}</td>
-                  <td style={{
-                    textAlign: "left",
-                  }}>{info}</td>
-                </tr>
-              );
-            })}
-            {/* <tr className="accordian-body collapse" id="devices-list">
-              <td colSpan="20" className="hiddenRow">
-                <table className="table table-striped">
-                  <thead>
-                    <tr>
-                      <th>Device</th>
-                      <th>Ver.</th>
-                      <th>Owner</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>Xiaomi Redmi Note 8</td>
-                      <td>9.0</td>
-                      <td>Empresa</td>
-                    </tr>
-                    <tr>
-                      <td>Xiaomi Redmi Note 8</td>
-                      <td>9.0</td>
-                      <td>Empresa</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-            </tr>
-          </tr>; */}
-          </tbody>
-        </table>
-      </div>
+      <ToolkitProvider
+        keyField='id'
+        data={notificationsData}
+        columns={columns}
+        defaultSorted={defaultSorted}
+        exportCSV
+      >
+        {
+          props => (
+            <div className="container">
+              {console.log(props)}
+              <ExportCSVButton {...props.csvProps}>Descargar CSV</ExportCSVButton>
+              <BootstrapTable
+                {...props.baseProps}
+                hover
+                condensed
+                bordered={false}
+              />
+            </div>
+          )
+        }
+      </ToolkitProvider>
     </Fragment>
   );
 }
