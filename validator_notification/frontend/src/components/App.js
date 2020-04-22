@@ -21,6 +21,8 @@ import Login from "./accounts/Login";
 import Register from "./accounts/Register";
 import About from "./about/About";
 import PrivateRoute from "./common/PrivateRoute";
+import AdminRoute from "./common/AdminRoute";
+import StaffRoute from "./common/StaffRoute";
 
 import { Provider } from "react-redux";
 import store from "../store";
@@ -59,20 +61,20 @@ class App extends Component {
                     path="/"
                     component={LayoutNotifications}
                   />
-                  <PrivateRoute
+                  <StaffRoute
                     exact
                     path="/data/dashboard"
                     component={LayoutGeneral}
                   />
-                  <PrivateRoute
+                  <StaffRoute
                     path="/data/dashboard/:id"
                     component={LayoutDashboard}
                   />
-                  <PrivateRoute
+                  <StaffRoute
                     path="/data/notification/general"
                     component={LayoutFormNotifications}
                   />
-                  <PrivateRoute
+                  <StaffRoute
                     path="/data/notification/:id/details"
                     component={LayoutFormNotifications}
                   />
