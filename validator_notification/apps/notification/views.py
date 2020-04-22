@@ -7,6 +7,8 @@ from rest_framework.response import Response
 
 from validator_notification.apps.notification.providers.providers import NotificationsProvider
 from validator_notification.apps.device.models import Device
+from validator_notification.apps.utils.decorators.service_permissions import service_permissions
+from validator_notification.apps.utils.enumerations.permissions_list import permissions_list
 from .serializers import GeneralNotificationSerializer, IndividualNotificationSerializer
 from .models import GeneralNotification, IndividualNotification
 
@@ -16,13 +18,15 @@ logger = logging.getLogger(__name__)
 
 class GeneralNotificationViewSet(viewsets.ModelViewSet):
     permission_classes = [
-        permissions.AllowAny
+        permissions.IsAuthenticated
     ]
     serializer_class = GeneralNotificationSerializer
 
+    @service_permissions((permissions_list.STAFF_PERMISSION, ))
     def get_queryset(self):
         return GeneralNotification.objects.all()
 
+    @service_permissions((permissions_list.STAFF_PERMISSION, ))
     def perform_create(self, serializer):
         genetal_notification = serializer.save()
 
@@ -53,7 +57,8 @@ class IndividualNotificationViewSet(viewsets.ModelViewSet):
     def _get_provider(request):
         return NotificationsProvider()
 
-    def _get_individual_notifications(self, response):
+    @staticmethod
+    def _get_individual_notifications(response):
         serialized_response = IndividualNotificationSerializer(instance=response, many=True)
         data_response = {
             'data': serialized_response.instance
@@ -66,8 +71,8 @@ class IndividualNotificationViewSet(viewsets.ModelViewSet):
         return self._get_individual_notifications(response)
 
     @action(methods=['get'], detail=False, url_path='all')
+    @service_permissions((permissions_list.STAFF_PERMISSION, ))
     def get_all_queryset(self, request):
-        self.permission_classes = [permissions.AllowAny]
         query_params = request.query_params
         date_from = query_params.get('from')
         date_to = query_params.get('to')
