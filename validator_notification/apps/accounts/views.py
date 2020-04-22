@@ -5,6 +5,8 @@ from rest_framework.response import Response
 from knox.models import AuthToken
 
 from validator_notification.apps.accounts.providers.providers import UserProvider
+from validator_notification.apps.utils.decorators.service_permissions import service_permissions
+from validator_notification.apps.utils.enumerations.permissions_list import permissions_list
 from .serializers import UserSerializer, RegisterSerializer, LoginSerializer
 
 
@@ -48,7 +50,8 @@ class UserViewSet(viewsets.ModelViewSet):
     def _get_provider(request):
         return UserProvider()
 
-    def _get_users(self, response):
+    @staticmethod
+    def _get_users(response):
         serialized_response = UserSerializer(instance=response, many=True)
         data_response = {
             'users': serialized_response.instance
@@ -61,15 +64,9 @@ class UserViewSet(viewsets.ModelViewSet):
         return self._get_users(response)
 
     @action(methods=['get'], detail=False, url_path='all')
+    @service_permissions((permissions_list.ADMIN_PERMISSION, ))
     def get_all_queryset(self, request):
-        self.permission_classes = [permissions.IsAdminUser]
-        # query_params = request.query_params
         provider = self._get_provider(request)
-        # if query_params.get('file') == 'csv':
-        #     response = HttpResponse(content_type='text/csv')
-        #     response['Content-Disposition'] = 'attachment; filename="export.csv"'
-        #     response = provider.get_csv(response)
-        # else:
         response = provider.get_user_all()
         response = self._get_users(response)
         return response
