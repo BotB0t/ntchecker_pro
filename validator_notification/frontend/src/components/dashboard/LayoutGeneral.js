@@ -39,25 +39,55 @@ export class LayoutGeneral extends Component {
                 </div>
                 <hr></hr>
                 <div className="container">
-                  <h3>Notificaciones Lanzadas</h3>
-                  <div className="row" style={{
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center"
-                  }}
-                  >
-                    {generalNotifications.map((general) => {
-                      const individualNotifications = notifications.filter(
-                        notification => notification.general.id == general.id);
+                  <div className="container">
+                    <h3>Notificaciones Lanzadas</h3>
+                    <ul className="nav nav-tabs nav-justified">
+                      <li className="nav-item">
+                        <a
+                          className="nav-link active"
+                          data-toggle="tab"
+                          href="#general"
+                        >
+                          General
+                        </a>
+                      </li>
+                      <li className="nav-item">
+                        <a className="nav-link" data-toggle="tab" href="#errors">
+                          KO
+                        </a>
+                      </li>
+                      <li className="nav-item">
+                        <a className="nav-link" data-toggle="tab" href="#solved">
+                          Solucionadas
+                         </a>
+                      </li>
+                    </ul>
+                  </div>
+                  <div className="tab-content">
+                    <br></br>
+                    <div className="tab-pane container active" id="general">
+                      <div className="row" style={{
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center"
+                      }}
+                      >
+                        {generalNotifications.map((general) => {
+                          const individualNotifications = notifications.filter(
+                            notification => notification.general.id == general.id);
 
-                      return (
-                        <CardGeneralNotification
-                          key={general.id}
-                          generalNotification={general}
-                          individualNotifications={individualNotifications}
-                        />
-                      )
-                    })}
+                          return (
+                            <CardGeneralNotification
+                              key={general.id}
+                              generalNotification={general}
+                              individualNotifications={individualNotifications}
+                            />
+                          )
+                        })}
+                      </div>
+                    </div>
+                    <div className="tab-pane container fade" id="errors">Proximamente...</div>
+                    <div className="tab-pane container fade" id="solved">Proximamente...</div>
                   </div>
                 </div>
               </div>
