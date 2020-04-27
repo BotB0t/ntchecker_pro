@@ -19,3 +19,9 @@ class IndividualNotificationSerializer(serializers.ModelSerializer):
     class Meta:
         model = IndividualNotification
         fields = '__all__'
+
+    def to_representation(self, instance) -> str:
+        ret = super().to_representation(instance)
+        ret['tlf'] = instance.get_tlf_with_mask()
+        ret['onesignal_id'] = instance.get_onesignal_id_with_mask()
+        return ret

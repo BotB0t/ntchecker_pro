@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User as DjangoUser
 from .utils.enumerations import options_notification, status_notification
 from validator_notification.apps.device.models import Device
+from validator_notification.apps.utils.helpers.data_mask import get_str_with_mask
 
 
 class GeneralNotification(models.Model):
@@ -25,3 +26,9 @@ class IndividualNotification(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     created_at = models.DateTimeField(auto_now_add=True)
     info = models.CharField(max_length=350, null=True)
+
+    def get_tlf_with_mask(self) -> str:
+        return get_str_with_mask(tail_to_convert=self.device.tlf, mask_symbol='*', n_unmaskchar=4)
+
+    def get_onesignal_id_with_mask(self) -> str:
+        return get_str_with_mask(tail_to_convert=self.device.onesignal_id or '', mask_symbol='*', n_unmaskchar=6)
