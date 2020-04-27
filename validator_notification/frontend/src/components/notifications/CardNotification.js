@@ -71,7 +71,9 @@ export default function CardNotification(props) {
           <div className="form-group">
             Vas a validar con este dispositivo:{" "}
             <h4>
-              <b>{notification.device.name}</b>
+              <b>{notification.device.name == null ?
+                (notification.device.tlf + " - " + notification.device.platform) : notification.device.name}
+              </b>
             </h4>
             <label>
               ¿Ha recibido la notificación de esta{" "}
