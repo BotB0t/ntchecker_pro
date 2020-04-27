@@ -13,3 +13,4 @@ class Device(models.Model):
     device = models.CharField(max_length=50, null=True)
     os_family = models.CharField(max_length=50, null=True)
     os_version = models.CharField(max_length=50, null=True)
+    onesignal_id = models.CharField(max_length=50, null=True)
