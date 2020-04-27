@@ -4,7 +4,9 @@ import Notifications from "./Notifications";
 export default function LayoutNotifications() {
   return (
     <Fragment>
-      <Notifications />
+      <div className="container">
+        <Notifications />
+      </div>
     </Fragment>
   );
 }

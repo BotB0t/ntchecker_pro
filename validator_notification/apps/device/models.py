@@ -6,8 +6,8 @@ from validator_notification.apps.utils.helpers.data_mask import get_str_with_mas
 
 
 class Device(models.Model):
-    name = models.CharField(max_length=50)
-    tlf = models.CharField(max_length=50, null=True)
+    name = models.CharField(max_length=50, null=True)
+    tlf = models.CharField(max_length=50, null=False)
     platform = models.CharField(max_length=50, null=False, choices=platform.tuples())
     owner = models.CharField(max_length=50, null=False, choices=owner.tuples())
     created_at = models.DateTimeField(auto_now_add=True)
