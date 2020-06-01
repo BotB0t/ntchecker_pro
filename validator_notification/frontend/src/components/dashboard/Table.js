@@ -101,7 +101,7 @@ export default function Table(props) {
         {
           props => (
             <div className="container">
-              {console.log(props)}
+              {}
               <ExportCSVButton {...props.csvProps}>Descargar CSV</ExportCSVButton>
               <BootstrapTable
                 {...props.baseProps}
