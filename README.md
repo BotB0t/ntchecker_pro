@@ -1,5 +1,15 @@
 # validator_notification
-Website to validate the reception of notifications
+Website to validate the reception of notifications. [Click-here](https://rebrand.ly/ntchecker)
+
+
+## Local development
+
+### Requirements
+
+- [Python3](https://docs.python.org/3.7/)
+- [pip3](https://pip.pypa.io/en/latest/installing/)
+- Either [Docker](https://docs.docker.com/install/) and [docker-compose](https://docs.docker.com/compose/install/), 
+or [PostgreSQL](https://www.postgresql.org/) 
 
 
 ### Setup
@@ -10,7 +20,7 @@ Website to validate the reception of notifications
 1. Run `pipenv install --dev` from the root folder of the repository
 1. Set the environment variable `DJANGO_READ_DOT_ENV_FILE=true`
 1. Check that you have 2 files in `.envs/local` (if you want to start the application with another environment, 
-set the environment variable accordingly `NT_ENV=itg|pre|pro`):
+set the environment variable accordingly `NT_ENV=itg|dev`):
   
     1. `.vars`: Configuration variables. For convenience, there is an `.vars` file inside each subfolder under `.envs`, 
     each corresponding to one of the GCP environments. The vars file should contain all variables declared
@@ -30,3 +40,15 @@ set the environment variable accordingly `NT_ENV=itg|pre|pro`):
     For django to load them at start, set the environment variable `export DJANGO_READ_DOT_ENV_FILE=true`
     - Set the environment variable `export DJANGO_SETTINGS_MODULE=config.settings.local`
     - `python manage.py runserver 0.0.0.0:8000`
+
+
+### PR's Rules
+
+# BACK & FRONT
+    • Todas se suben a la rama dev
+    • El título de la PR tiene que tener un formato 'git commit'. Es decir, todo en minúsculas, comenzando con feat/ fix/ feature/ refactor... + (FEATURE) + : descripción corta. Tener en cuenta que tras cerrar la PR, es el mensaje de commit que queda en el histórico. 😉
+    • En la descripción de la PR. Hay que incluir brevemente los motivos por los cuales se ha optado por esa implementación en concreto. Sobretodo en los casos más complejos (si es suficiente con el título de la PR, perfecto).
+    • Las PR tienen que aprobarse por al menos 1 backs o fronts. 
+    • Hay que añadir a revisores, incluirse a uno mismo como asignado y añadir las label que correspondan
+    • Tenemos labels como WIP o Don't merge para facilitar las PR más complicadas, para que el resto del equipo las pueda revisar y aportar ideas.
+    • La responsabilidad de las PR son del autor. Vamos a intentar que no se enquisten PR abiertas más de 2-3 días. Si hace falta, se persigue a la gente para que se revisen.
