@@ -6,12 +6,13 @@ function getStats(username, notificationsAll) {
   var ok = 0, ko = 0, nan = 0, id = -1;
   var info = '';
   var notifications = [];
+
   notificationsAll.map(function (notification) {
     if (notification.user.username == username) {
-      if (notification.status == "NEW") nan = nan + 1;
+      if (notification.status == "NEW") nan += 1;
       else {
-        if (notification.option_selected == "YES") ok = ok + 1;
-        else if (notification.option_selected == "NO") ko = ko + 1;
+        if (notification.option_selected == "YES") ok += 1;
+        else if (notification.option_selected == "NO") ko += 1;
       }
 
       if (notification.info)
@@ -58,21 +59,21 @@ const columns = [
     text: 'OK',
     sort: true,
     align: 'center',
-    headerStyle: { backgroundColor: '#c9ebbe' }
+    headerStyle: { backgroundColor: '#c9ebbe', textAlign: 'center' }
   },
   {
     dataField: 'ko',
     text: 'KO',
     sort: true,
     align: 'center',
-    headerStyle: { backgroundColor: '#ffb8c8' }
+    headerStyle: { backgroundColor: '#ffb8c8', textAlign: 'center' }
   },
   {
     dataField: 'nan',
     text: '-',
     sort: true,
     align: 'center',
-    headerStyle: { backgroundColor: '#DEE2E6' }
+    headerStyle: { backgroundColor: '#DEE2E6', textAlign: 'center' }
   },
   {
     dataField: 'info',

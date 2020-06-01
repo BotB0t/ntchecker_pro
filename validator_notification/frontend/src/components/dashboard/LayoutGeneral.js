@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from "react";
-import Loader from 'react-loader-spinner'
+import Loader from 'react-loader-spinner';
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import TotalTable from "./TotalTable";
@@ -37,7 +37,7 @@ export class LayoutGeneral extends Component {
                   <h3>Total</h3>
                   <TotalTable notifications={notifications} />
                 </div>
-                <hr></hr>
+                <hr/>
                 <div className="container">
                   <div className="container">
                     <h3>Notificaciones Lanzadas</h3>
@@ -64,7 +64,7 @@ export class LayoutGeneral extends Component {
                     </ul>
                   </div>
                   <div className="tab-content">
-                    <br></br>
+                    <br/>
                     <div className="tab-pane container active" id="general">
                       <div className="row" style={{
                         display: "flex",
@@ -86,8 +86,8 @@ export class LayoutGeneral extends Component {
                         })}
                       </div>
                     </div>
-                    <div className="tab-pane container fade" id="errors">Proximamente...</div>
-                    <div className="tab-pane container fade" id="solved">Proximamente...</div>
+                    <div className="tab-pane container fade" id="errors">Próximamente...</div>
+                    <div className="tab-pane container fade" id="solved">Próximamente...</div>
                   </div>
                 </div>
               </div>
@@ -110,8 +110,7 @@ export class LayoutGeneral extends Component {
                     type="Oval"
                     color="#9FD574"
                     height={50}
-                    width={50}
-                    timeout={10000} //10 secs
+                    width={50}  // timeout={10000} //10 secs
                   />
                 </div>
               </div>
