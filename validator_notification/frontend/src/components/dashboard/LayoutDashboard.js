@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from "react";
+import Loader from 'react-loader-spinner';
 import TotalTable from "./TotalTable";
 import Table from "./Table";
 import { connect } from "react-redux";
@@ -46,6 +47,11 @@ class LayoutDashboard extends Component {
     getIndividualNotifications: PropTypes.func.isRequired,
   };
 
+  componentWillMount() {
+    this.props.individualNotifications = [];
+    return { };
+  }
+
   componentDidMount() {
     this.props.getIndividualNotifications({
       general_id: this.state.general_id,
@@ -68,21 +74,42 @@ class LayoutDashboard extends Component {
       <Fragment>
         <br></br>
         {this.renderRedirect()}
-        <button className="btn btn-link" onClick={this.setRedirect}>Atrás</button>
-        <br></br>
-        <div className="container">
+        <button className="btn btn-link btn-back" onClick={this.setRedirect}>Atrás</button>
+        <br/>
+        <div className="notificationDetailed">
           {this.props.individualNotifications.length > 0 ? (
-            <div className="container">
-              <div className="container">
-                <h2>{this.props.individualNotifications[0].general.title}</h2>
+            <div>
+              <div>
+                <h1>{this.props.individualNotifications[0].general.title}</h1>
               </div>
               <hr></hr>
               <h3>Total</h3>
               <TotalTable notifications={this.props.individualNotifications} />
             </div>
           ) : (
-              <div></div>
-            )}
+              <div className="container">
+                <br></br>
+                <div className="container" style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center"
+                }}>
+                  <h3>Recibiendo datos...</h3>
+                </div>
+                <div className="container" style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center"
+                }}>
+                  <Loader
+                    type="Oval"
+                    color="#9FD574"
+                    height={50}
+                    width={50}  // timeout={10000} //10 secs
+                  />
+                </div>
+              </div>
+          )}
         </div>
         <hr></hr>
         <div className="container">

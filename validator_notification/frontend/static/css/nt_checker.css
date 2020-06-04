@@ -1,0 +1,8 @@
+.btn-back{
+	background-image: url('../images/back_arrow.svg');
+	background-position: 0 1px;
+	background-repeat: no-repeat;
+	color: #222;
+	padding-left: 26px;
+	padding: 0 25px;
+}

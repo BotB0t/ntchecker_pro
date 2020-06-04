@@ -51,7 +51,7 @@ export class Notifications extends Component {
       <Fragment>
         <div className="container">
           <h1>Listado Notificaciones</h1>
-          <div class="alert alert-primary" role="alert">
+          <div className="alert alert-primary" role="alert">
             Por motivos de seguridad, los números de teléfonos se han ocultado mostrando únicamente los 4 últimos dígitos.
           </div>
           <div>
