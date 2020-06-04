@@ -28,7 +28,7 @@ class GeneralNotificationViewSet(viewsets.ModelViewSet):
 
     @service_permissions((permissions_list.STAFF_PERMISSION, ))
     def perform_create(self, serializer):
-        genetal_notification = serializer.save()
+        general_notification = serializer.save()
 
         devices = Device.objects.all()
         logger.info('GeneralNotification: Create: Individual Notifications to create: %s' % len(devices))
@@ -36,14 +36,12 @@ class GeneralNotificationViewSet(viewsets.ModelViewSet):
             user = device.user
             if user.is_active:
                 IndividualNotification.objects.create(
-                    general=genetal_notification,
+                    general=general_notification,
                     user=user,
                     device=device,
                     option_selected=''
                 )
-                logger.info('GeneralNotification: IndividualNotification: Create: True User: %s' % user.username)
-            else:
-                logger.info('GeneralNotification: IndividualNotification: Create: False User: %s' % user.username)
+            logger.info('GeneralNotification: IndividualNotification: Create: %s User: %s' % (user.is_active, user.username))
         logger.info('GeneralNotification: Create: Finished')
 
 
