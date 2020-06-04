@@ -44,21 +44,53 @@ export class GeneralNotifications extends Component {
 									}).format(new Date(generalNotification.created_at))}</td>
 									<td>
 										<button
-											onClick={this.props.deleteGeneralNotification.bind(
-												this,
-												generalNotification.id,
-												generalNotification.title
-											)}
 											className="btn btn-danger btn-sm"
-											disabled="true"
+											data-toggle="modal"
+											data-target="#exampleModal"
+											disabled={false}
 										>
 											Delete
-                    </button>
+                    					</button>
+										<div className="modal fade" id="exampleModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+											<div className="modal-dialog " role="document">
+												<div className="modal-content">
+													<div className="modal-header bg-danger">
+														<h4 className="modal-title text-light" id="exampleModalLabel">
+															<span className="display-4">&#9888;</span>
+															<span className="pl-4 font-weight-bold">¿Desea borrar esta notificación?</span>
+															<h5 className="font-italic">*Borrar la notificación general supone la pérdida de toda la información asocidada a esta*</h5></h4>
+														<button type="button" className="close" data-dismiss="modal" aria-label="Close">
+															<span aria-hidden="true">&times;</span>
+														</button>
+													</div>
+													<div className="modal-body">
+														<h5><span className="modal-lable font-weight-bold pr-2">TITULO:</span> {generalNotification.title}</h5>
+														<h5><span className="modal-lable font-weight-bold pr-2">FECHA:</span> {new Intl.DateTimeFormat("es-ES", {
+															year: "numeric",
+															month: "long",
+															day: "numeric",
+															hour: "numeric",
+															minute: "numeric",
+														}).format(new Date(generalNotification.created_at))}</h5><br />
+
+													</div>
+													<div className="modal-footer">
+														<button type="button" className="btn btn-secondary" data-dismiss="modal">Cancel</button>
+														<button type="button" className="btn btn-danger" data-dismiss="modal" onClick={this.props.deleteGeneralNotification.bind(
+															this,
+															generalNotification.id,
+															generalNotification.title
+														)}>Delete</button>
+													</div>
+												</div>
+											</div>
+										</div>
 									</td>
 								</tr>
 							))}
 						</tbody>
 					</table>
+
 				</div>
 			</Fragment>
 		);
