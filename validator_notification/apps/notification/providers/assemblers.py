@@ -6,26 +6,31 @@ from validator_notification.apps.notification.models import IndividualNotificati
 from validator_notification.apps.utils.helpers.data_mask import get_str_with_mask
 
 
-def assemble_notification_list(data: list) -> List[IndividualNotification]:
-    return [assemble_notification(notification) for notification in data]
+def assemble_notification_list(data: list, load_user=True) -> List[IndividualNotification]:
+    return [assemble_notification(notification, load_user) for notification in data]
 
 
-def assemble_notification(notification: IndividualNotification) -> IndividualNotification:
+def assemble_notification(notification: IndividualNotification, load_user: bool) -> IndividualNotification:
+
     general = model_to_dict(notification.general)
-    user = model_to_dict(notification.user, fields=[field.name for field in notification.user._meta.fields])
-    device = model_to_dict(notification.device)
-    device['tlf'] = get_str_with_mask(tail_to_convert=device.get('tlf', ''), mask_symbol='*', n_unmaskchar=4)
-    device['onesignal_id'] = get_str_with_mask(
-        tail_to_convert=device.get('onesignal_id') or '', mask_symbol='*', n_unmaskchar=6)
+
+    if load_user:
+        user = model_to_dict(notification.user, fields=[field.name for field in notification.user._meta.fields])
+        device = model_to_dict(notification.device)
+        device['tlf'] = get_str_with_mask(tail_to_convert=device.get('tlf', ''), mask_symbol='*', n_unmaskchar=4)
+        device['onesignal_id'] = get_str_with_mask(
+            tail_to_convert=device.get('onesignal_id') or '', mask_symbol='*', n_unmaskchar=6)
+
+        updated_at = notification.updated_at
     created_at = notification.created_at
-    updated_at = notification.updated_at
 
     notification = model_to_dict(notification)
-
     notification['general'] = general
-    notification['user'] = user
-    notification['device'] = device
-    notification['update_at'] = updated_at
+    if load_user:
+        notification['user'] = user
+        notification['device'] = device
+        notification['update_at'] = updated_at
+
     notification['created_at'] = created_at
 
     return notification
