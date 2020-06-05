@@ -14,14 +14,14 @@ export class Header extends Component {
     const { isAuthenticated, user } = this.props.auth;
 
     const authLinks = (
-      <ul className="navbar-nav ml-auto mt-2 mt-lg-0">
-        <span className="navbar-text mr-2">
+      <ul className="navbar-nav float-left mt-2 mt-lg-0">
+        <span className="navbar-text mr-3">
           <strong>{user ? `${user.username}` : ""}</strong>
         </span>
         <li className="nav-item">
           <button
             onClick={this.props.logout}
-            className="nav-link btn btn-link btn-sm"
+            className="nav-link btn btn-primary text-light rounded-lg btn-sm p-2"
           >
             Logout
           </button>
@@ -30,15 +30,27 @@ export class Header extends Component {
     );
 
     const adminLinks = (
-      <li className="nav-item">
-        <hr></hr>
-        <Link to="/data/dashboard" className="nav-link">
-          Dashboard
-        </Link>
-        <Link to="/data/notification/general" className="nav-link">
-          Formulario Notificaciones
-        </Link>
-        <hr></hr>
+      <li className="nav-item dropdown pr-5">
+        <a
+          class="nav-link dropdown-toggle"
+          href="#"
+          id="navbarDropdown"
+          role="button"
+          data-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false"
+        >
+          Administracion
+        </a>
+        <div className="dropdown-menu" aria-labelledby="navbarDropdown">
+          <Link to="/data/dashboard" className="dropdown-item">
+            Dashboard
+          </Link>
+          <div className="dropdown-divider"></div>
+          <Link to="/data/notification/general" className="dropdown-item">
+            Formulario Notificaciones
+          </Link>
+        </div>
       </li>
     );
 
@@ -58,7 +70,7 @@ export class Header extends Component {
     );
 
     return (
-      <nav className="navbar navbar-expand-sm navbar-light bg-light">
+      <nav className="navbar navbar-expand-sm navbar-light bg-light mb-3">
         <a className="navbar-brand" href="#">
           Validador de Notificaciones
         </a>
@@ -86,12 +98,13 @@ export class Header extends Component {
                 Listado Dispositivos
               </Link>
             </li>
-            {user ? (user.is_staff ? adminLinks : "") : ""}
             <li>
               <Link to="/about" className="nav-link">
                 Contáctanos
               </Link>
             </li>
+            {user ? (user.is_staff ? adminLinks : "") : ""}
+
             {isAuthenticated ? authLinks : guestLinks}
           </ul>
         </div>
