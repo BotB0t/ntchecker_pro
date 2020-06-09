@@ -15,9 +15,86 @@ export class Header extends Component {
 
     const authLinks = (
       <ul className="navbar-nav float-left mt-2 mt-lg-0">
-        <span className="navbar-text mr-3">
-          <strong>{user ? `${user.username}` : ""}</strong>
-        </span>
+        <li className="nav-item dropdown pr-5">
+          <a
+            className="nav-link dropdown-toggle"
+            href="#"
+            id="userDropdown"
+            role="button"
+            data-toggle="dropdown"
+            data-display="static"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
+            <strong>{user ? `${user.username}` : ""}</strong>
+          </a>
+          <div className="dropdown-menu dropdown-menu-right dropdown-menu-left">
+            {user ? (
+              user.is_staff ? (
+                <button
+                  type="submit"
+                  className="btn btn-link dropdown-item"
+                  data-toggle="modal"
+                  data-target="#adminModal"
+                >
+                  Entrar como administrador
+                </button>
+              ) : (
+                ""
+              )
+            ) : (
+              ""
+            )}
+          </div>
+          <div
+            className="modal fade"
+            id="adminModal"
+            tabIndex="-1"
+            role="dialog"
+            aria-labelledby="adminModalLabel"
+            aria-hidden="true"
+          >
+            <div className="modal-dialog " role="document">
+              <div className="modal-content">
+                <div className="modal-header">
+                  <h4 className="modal-title" id="adminModalLabel">
+                    Acceder como administrador
+                  </h4>
+                  <button
+                    type="button"
+                    className="close"
+                    data-dismiss="modal"
+                    aria-label="Close"
+                  >
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div className="modal-body">
+                  <form onSubmit={this.onSubmit}>
+                    <div className="form-group">
+                      <label>Contraseña</label>
+                      <input
+                        type="password"
+                        className="form-control"
+                        name="password"
+                        onChange={this.onChange}
+                      />
+                    </div>
+                    <div className="form-group">
+                      <button
+                        type="submit"
+                        className="btn btn-primary"
+                        data-dismiss="modal"
+                      >
+                        Entrar
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
         <li className="nav-item">
           <button
             onClick={this.props.logout}
@@ -32,7 +109,7 @@ export class Header extends Component {
     const adminLinks = (
       <li className="nav-item dropdown pr-5">
         <a
-          class="nav-link dropdown-toggle"
+          className="nav-link dropdown-toggle"
           href="#"
           id="navbarDropdown"
           role="button"
