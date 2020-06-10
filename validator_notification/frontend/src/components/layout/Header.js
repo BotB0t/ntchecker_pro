@@ -50,6 +50,7 @@ export class Header extends Component {
             Logout
           </button>
         </li>
+        <li className="nav-item"></li>
       </ul>
     );
 

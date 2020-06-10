@@ -79,7 +79,7 @@ export class GeneralNotifications extends Component {
                   </td>
                   <td>
                     <button
-                      className="btn btn-danger btn-sm"
+                      className="btn btn-delete btn-sm"
                       data-toggle="modal"
                       data-target="#deleteModal"
                       disabled={false}
@@ -87,6 +87,83 @@ export class GeneralNotifications extends Component {
                     >
                       Delete
                     </button>
+                    <div
+                      className="modal fade"
+                      id="deleteModal"
+                      tabIndex="-1"
+                      role="dialog"
+                      aria-labelledby="deleteModalLabel"
+                      aria-hidden="true"
+                    >
+                      <div className="modal-dialog " role="document">
+                        <div className="modal-content">
+                          <div className="modal-header bg-delete">
+                            <h4 className="modal-title" id="deleteModalLabel">
+                              <span className="display-4">&#9888;</span>
+                              <span className="pl-4 font-weight-bold">
+                                ¿Desea borrar esta notificación?
+                              </span>
+                              <p className="font-italic h5">
+                                Borrar la notificación general supone la pérdida
+                                de toda la información asocidada a esta
+                              </p>
+                            </h4>
+                            <button
+                              type="button"
+                              className="close"
+                              data-dismiss="modal"
+                              aria-label="Close"
+                            >
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div className="modal-body">
+                            <h5>
+                              <span className="modal-lable font-weight-bold pr-2">
+                                TITULO:
+                              </span>{" "}
+                              {generalNotification.title}
+                            </h5>
+                            <h5>
+                              <span className="modal-lable font-weight-bold pr-2">
+                                FECHA:
+                              </span>{" "}
+                              {new Intl.DateTimeFormat("es-ES", {
+                                year: "numeric",
+                                month: "long",
+                                day: "numeric",
+                                hour: "numeric",
+                                minute: "numeric",
+                              }).format(
+                                new Date(generalNotification.created_at)
+                              )}
+                            </h5>
+                            <br />
+                          </div>
+                          <div className="modal-footer">
+                            <button
+                              type="button"
+                              className="btn btn-cancel"
+                              data-dismiss="modal"
+                            >
+                              Cancel
+                            </button>
+                            <button
+                              type="button"
+                              className="btn btn-delete"
+                              data-dismiss="modal"
+                              onClick={this.props.deleteGeneralNotification.bind(
+                                this,
+                                generalNotification.id,
+                                generalNotification.title
+                              )}
+                            >
+                              Delete
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </td>
                 </tr>
               ))}
