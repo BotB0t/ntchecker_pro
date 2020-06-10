@@ -56,7 +56,7 @@ export class Notifications extends Component {
           </div>
           <div>
             <button
-              className="btn btn-outline-secondary btn-block"
+              className="btn btn-accept btn-block"
               onClick={() => this.refreshPage()}
             >
               Actualizar

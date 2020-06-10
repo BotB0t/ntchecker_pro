@@ -49,36 +49,33 @@ export class GeneralNotifications extends Component {
                   </td>
                   <td>
                     <button
-                      className="btn btn-danger btn-sm"
+                      className="btn btn-delete btn-sm"
                       data-toggle="modal"
-                      data-target="#exampleModal"
+                      data-target="#deleteModal"
                       disabled={false}
                     >
                       Delete
                     </button>
                     <div
                       className="modal fade"
-                      id="exampleModal"
+                      id="deleteModal"
                       tabIndex="-1"
                       role="dialog"
-                      aria-labelledby="exampleModalLabel"
+                      aria-labelledby="deleteModalLabel"
                       aria-hidden="true"
                     >
                       <div className="modal-dialog " role="document">
                         <div className="modal-content">
-                          <div className="modal-header bg-danger">
-                            <h4
-                              className="modal-title text-light"
-                              id="exampleModalLabel"
-                            >
+                          <div className="modal-header bg-delete">
+                            <h4 className="modal-title" id="deleteModalLabel">
                               <span className="display-4">&#9888;</span>
                               <span className="pl-4 font-weight-bold">
                                 ¿Desea borrar esta notificación?
                               </span>
-                              <h5 className="font-italic">
+                              <p className="font-italic h5">
                                 Borrar la notificación general supone la pérdida
                                 de toda la información asocidada a esta
-                              </h5>
+                              </p>
                             </h4>
                             <button
                               type="button"
@@ -115,14 +112,14 @@ export class GeneralNotifications extends Component {
                           <div className="modal-footer">
                             <button
                               type="button"
-                              className="btn btn-secondary"
+                              className="btn btn-cancel"
                               data-dismiss="modal"
                             >
                               Cancel
                             </button>
                             <button
                               type="button"
-                              className="btn btn-danger"
+                              className="btn btn-delete"
                               data-dismiss="modal"
                               onClick={this.props.deleteGeneralNotification.bind(
                                 this,

@@ -18,20 +18,20 @@ export class About extends Component {
                       <a
                         href="mailto:aabrilfl@mercadona.es"
                         target="_blank"
-                        className="btn btn-link"
+                        className="btn btn-link links"
                       >
                         aabrilfl@mercadona.es
                       </a>
                     </li>
                     <li>
                       Tlf.{" "}
-                      <a href="tel:683482573" target="_blank">
+                      <a className="links" href="tel:683482573" target="_blank">
                         683 48 25 73
                       </a>
                     </li>
                     <li>
                       Ext.{" "}
-                      <a href="tel:28511" target="_blank">
+                      <a className="links" href="tel:28511" target="_blank">
                         28511
                       </a>
                     </li>

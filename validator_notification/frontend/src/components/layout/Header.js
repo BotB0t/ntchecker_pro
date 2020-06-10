@@ -29,6 +29,10 @@ export class Header extends Component {
             <strong>{user ? `${user.username}` : ""}</strong>
           </a>
           <div className="dropdown-menu dropdown-menu-right dropdown-menu-left">
+            <Link to="/profile-info/devices" className="dropdown-item mb-1">
+              Dispositivos
+            </Link>
+            <div className="dropdown-divider"></div>
             {user ? (
               user.is_staff ? (
                 <button
@@ -45,6 +49,10 @@ export class Header extends Component {
             ) : (
               ""
             )}
+            <div className="dropdown-divider"></div>
+            <button onClick={this.props.logout} className="dropdown-item">
+              Logout
+            </button>
           </div>
           <div
             className="modal fade"
@@ -83,7 +91,7 @@ export class Header extends Component {
                     <div className="form-group">
                       <button
                         type="submit"
-                        className="btn btn-primary"
+                        className="btn btn-accept"
                         data-dismiss="modal"
                       >
                         Entrar
@@ -95,14 +103,7 @@ export class Header extends Component {
             </div>
           </div>
         </li>
-        <li className="nav-item">
-          <button
-            onClick={this.props.logout}
-            className="nav-link btn btn-primary text-light rounded-lg btn-sm p-2"
-          >
-            Logout
-          </button>
-        </li>
+        <li className="nav-item"></li>
       </ul>
     );
 
@@ -168,11 +169,6 @@ export class Header extends Component {
             <li className="nav-item">
               <Link to="/" className="nav-link">
                 Listado Notificaciones
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link to="/profile-info/devices" className="nav-link">
-                Listado Dispositivos
               </Link>
             </li>
             <li>
