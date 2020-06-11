@@ -1,7 +1,9 @@
 # validator_notification
 Website to validate the reception of notifications. 
-[ntchecker-pro](https://rebrand.ly/ntchecker)
-[ntchecker-dev](https://rebrand.ly/ntchecker-dev)
+
+* [ntchecker-pro](https://rebrand.ly/ntchecker)
+
+* [ntchecker-dev](https://rebrand.ly/ntchecker-dev)
 
 
 ## Local development
