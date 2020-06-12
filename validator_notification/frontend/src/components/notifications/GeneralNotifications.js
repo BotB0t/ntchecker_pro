@@ -5,8 +5,11 @@ import {
   getGeneralNotificationsAll,
   deleteGeneralNotification,
 } from "../../actions/generalNotifications";
+import { Modal } from "../layout/Modal";
 
 export class GeneralNotifications extends Component {
+  state = { isModalActive: false, id: null, title: null, date: null };
+
   static propTypes = {
     generalNotifications: PropTypes.array.isRequired,
     getGeneralNotificationsAll: PropTypes.func.isRequired,
@@ -17,10 +20,37 @@ export class GeneralNotifications extends Component {
     this.props.getGeneralNotificationsAll();
   }
 
+  LoadData(notification) {
+    this.setState((state) => ({ id: notification.id }));
+    this.setState((state) => ({ title: notification.title }));
+    this.setState((state) => ({ date: notification.created_at }));
+    this.setState((state) => ({ isModalActive: !this.state.isModalActive }));
+  }
+
+  deactivateModal = () => {
+    this.setState((state) => ({ isModalActive: !this.state.isModalActive }));
+  };
+
+  deleteNotification = (id, title) => {
+    this.props.deleteGeneralNotification(id, title);
+    this.deactivateModal();
+  };
+
   render() {
     const { generalNotifications } = this.props;
     generalNotifications.sort(
       (a, b) => new Date(b.created_at) - new Date(a.created_at)
+    );
+
+    const deleteModal = (
+      <Modal
+        id={this.state.id}
+        title={this.state.title}
+        date={this.state.date}
+        modalActive={this.state.isModalActive}
+        deleteNotification={this.deleteNotification}
+        deactivateModal={this.deactivateModal}
+      />
     );
 
     return (
@@ -53,102 +83,25 @@ export class GeneralNotifications extends Component {
                       data-toggle="modal"
                       data-target="#deleteModal"
                       disabled={false}
+                      onClick={() => this.LoadData(generalNotification)}
                     >
                       Delete
                     </button>
-                    <div
-                      className="modal fade"
-                      id="deleteModal"
-                      tabIndex="-1"
-                      role="dialog"
-                      aria-labelledby="deleteModalLabel"
-                      aria-hidden="true"
-                    >
-                      <div className="modal-dialog " role="document">
-                        <div className="modal-content">
-                          <div className="modal-header bg-delete">
-                            <h4 className="modal-title" id="deleteModalLabel">
-                              <span className="display-4">&#9888;</span>
-                              <span className="pl-4 font-weight-bold">
-                                ¿Desea borrar esta notificación?
-                              </span>
-                              <p className="font-italic h5">
-                                Borrar la notificación general supone la pérdida
-                                de toda la información asocidada a esta
-                              </p>
-                            </h4>
-                            <button
-                              type="button"
-                              className="close"
-                              data-dismiss="modal"
-                              aria-label="Close"
-                            >
-                              <span aria-hidden="true">&times;</span>
-                            </button>
-                          </div>
-                          <div className="modal-body">
-                            <h5>
-                              <span className="modal-lable font-weight-bold pr-2">
-                                TITULO:
-                              </span>{" "}
-                              {generalNotification.title}
-                            </h5>
-                            <h5>
-                              <span className="modal-lable font-weight-bold pr-2">
-                                FECHA:
-                              </span>{" "}
-                              {new Intl.DateTimeFormat("es-ES", {
-                                year: "numeric",
-                                month: "long",
-                                day: "numeric",
-                                hour: "numeric",
-                                minute: "numeric",
-                              }).format(
-                                new Date(generalNotification.created_at)
-                              )}
-                            </h5>
-                            <br />
-                          </div>
-                          <div className="modal-footer">
-                            <button
-                              type="button"
-                              className="btn btn-cancel"
-                              data-dismiss="modal"
-                            >
-                              Cancel
-                            </button>
-                            <button
-                              type="button"
-                              className="btn btn-delete"
-                              data-dismiss="modal"
-                              onClick={this.props.deleteGeneralNotification.bind(
-                                this,
-                                generalNotification.id,
-                                generalNotification.title
-                              )}
-                            >
-                              Delete
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
+        {this.state.isModalActive ? deleteModal : ""}
       </Fragment>
     );
   }
 }
 
-const mapStateToProps = (state) =>
-  // console.log(state),
-  ({
-    generalNotifications: state.generalNotifications.generalNotifications,
-  });
+const mapStateToProps = (state) => ({
+  generalNotifications: state.generalNotifications.generalNotifications,
+});
 
 export default connect(mapStateToProps, {
   getGeneralNotificationsAll,
