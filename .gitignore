@@ -142,3 +142,7 @@ package-lock.json
 ### Dev DDBB
 
 *.sqlite3
+
+### statics Front
+
+validator_notification/frontend/static/frontend/main.js
