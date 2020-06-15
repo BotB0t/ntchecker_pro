@@ -96,7 +96,7 @@ export class DevicesForm extends Component {
       <div>
         <br></br>
         <button
-          className="btn btn-outline-success btn-block"
+          className="btn btn-accept btn-block"
           type="button"
           data-toggle="collapse"
           data-target="#collapseForm"
@@ -112,7 +112,7 @@ export class DevicesForm extends Component {
               <div className="form-group text-center">
                 <button
                   type="button"
-                  className="btn btn-link"
+                  className="btn btn-link links"
                   onClick={() => this.handleSwitchChange()}
                   readOnly
                 >
@@ -180,7 +180,7 @@ export class DevicesForm extends Component {
               </div>
               <hr></hr>
               <div className="form-group">
-                <button type="submit" className="btn btn-primary">
+                <button type="submit" className="btn btn-accept">
                   AÑADIR DISPOSITIVO
                 </button>
               </div>

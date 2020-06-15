@@ -79,7 +79,7 @@ export class GeneralNotifications extends Component {
                   </td>
                   <td>
                     <button
-                      className="btn btn-danger btn-sm"
+                      className="btn btn-delete btn-sm"
                       data-toggle="modal"
                       data-target="#deleteModal"
                       disabled={false}
