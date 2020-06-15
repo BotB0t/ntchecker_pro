@@ -42,7 +42,7 @@ export class GeneralNotificationForm extends Component {
 								value={this.state.title}
 							/>
 							<small id="passwordHelpBlock" className="form-text text-muted">
-								Hay que buscar los emoticonos <a href="https://emojiterra.com/es/" target="_bank">aquí</a>
+								Hay que buscar los emoticonos <a className="links" href="https://emojiterra.com/es/" target="_bank">aquí</a>
 							</small>
 						</div>
 						<div className="form-group">
@@ -57,11 +57,11 @@ export class GeneralNotificationForm extends Component {
 								value={this.state.url}
 							/>
 							<small id="passwordHelpBlock" className="form-text text-muted">
-								Hay que poner la url de la publicación de <a href="https://activo2.mercadona.com/#/contents/mercadona-publications" target="_bank">Activo2</a>
+								Hay que poner la url de la publicación de <a className="links" href="https://activo2.mercadona.com/#/contents/mercadona-publications" target="_bank">Activo2</a>
 							</small>
 						</div>
 						<div className="form-group">
-							<button type="submit" className="btn btn-primary">
+							<button type="submit" className="btn btn-accept">
 								AÑADIR NOTIFICACION
 							</button>
 						</div>
