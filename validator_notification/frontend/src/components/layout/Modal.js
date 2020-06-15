@@ -20,8 +20,8 @@ export class Modal extends Component {
       >
         <div className="modal-dialog " role="document">
           <div className="modal-content">
-            <div className="modal-header bg-danger">
-              <h4 className="modal-title text-light" id="deleteModalLabel">
+            <div className="modal-header bg-delete">
+              <h4 className="modal-title" id="deleteModalLabel">
                 <span className="display-4">&#9888;</span>
                 <span className="pl-4 font-weight-bold">
                   ¿Desea borrar esta notificación?
@@ -65,7 +65,7 @@ export class Modal extends Component {
             <div className="modal-footer">
               <button
                 type="button"
-                className="btn btn-secondary"
+                className="btn btn-cancel"
                 data-dismiss="modal"
                 onClick={this.handleCloseModal}
               >
@@ -73,7 +73,7 @@ export class Modal extends Component {
               </button>
               <button
                 type="button"
-                className="btn btn-danger"
+                className="btn btn-delete"
                 data-dismiss="modal"
                 onClick={this.handleDeleteNotification}
               >
