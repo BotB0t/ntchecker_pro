@@ -39,8 +39,8 @@ export class Header extends Component {
             <strong>{user ? `${user.username}` : ""}</strong>
           </a>
           <div className="dropdown-menu dropdown-menu-right dropdown-menu-left">
-            <Link to="/profile-info/devices" className="dropdown-item mb-1">
-              Dispositivos
+            <Link to="/profile-info/profile" className="dropdown-item mb-1">
+              Perfil
             </Link>
             <div className="dropdown-divider"></div>
             {user ? (user.is_staff ? adminButton : "") : ""}
