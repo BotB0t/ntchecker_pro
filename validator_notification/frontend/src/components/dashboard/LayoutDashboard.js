@@ -47,10 +47,10 @@ class LayoutDashboard extends Component {
     getIndividualNotifications: PropTypes.func.isRequired,
   };
 
-  /*componentWillMount() {
+  componentWillMount() {
     this.props.individualNotifications = [];
     return { };
-  }*/
+  }
 
   componentDidMount() {
     this.props.getIndividualNotifications({
