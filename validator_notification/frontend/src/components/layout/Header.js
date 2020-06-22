@@ -39,17 +39,18 @@ export class Header extends Component {
             <strong>{user ? `${user.username}` : ""}</strong>
           </a>
           <div className="dropdown-menu dropdown-menu-right dropdown-menu-left">
+            <Link to="/profile-info/profile" className="dropdown-item mb-1">
+              Perfil
+            </Link>
+            <div className="dropdown-divider"></div>
             {user ? (user.is_staff ? adminButton : "") : ""}
+            <div className="dropdown-divider"></div>
+            <button onClick={this.props.logout} className="dropdown-item">
+              Logout
+            </button>
           </div>
         </li>
-        <li className="nav-item">
-          <button
-            onClick={this.props.logout}
-            className="nav-link btn btn-primary text-light rounded-lg btn-sm p-2"
-          >
-            Logout
-          </button>
-        </li>
+        <li className="nav-item"></li>
       </ul>
     );
 
@@ -116,11 +117,6 @@ export class Header extends Component {
               <li className="nav-item">
                 <Link to="/" className="nav-link">
                   Listado Notificaciones
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link to="/profile-info/devices" className="nav-link">
-                  Listado Dispositivos
                 </Link>
               </li>
               <li>

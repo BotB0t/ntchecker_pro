@@ -77,7 +77,7 @@ export default function CardNotification(props) {
             </h4>
             <label>
               ¿Ha recibido la notificación de esta{" "}
-              <a href={notification.general.url} target="_balnk">
+              <a className="links" href={notification.general.url} target="_balnk">
                 Publicación
               </a>
               ?
@@ -86,7 +86,7 @@ export default function CardNotification(props) {
               <button
                 onClick={() => handleOptionSelected("YES")}
                 type="submit"
-                className="btn btn-success btn-lg btn-block"
+                className="btn btn-accept btn-lg btn-block"
                 disabled={disable_btn_yes}
               >
                 SI
@@ -94,7 +94,7 @@ export default function CardNotification(props) {
               <button
                 onClick={() => handleOptionSelected("NO")}
                 type="submit"
-                className="btn btn-danger btn-lg btn-block"
+                className="btn btn-delete btn-lg btn-block"
                 disabled={disable_btn_no}
               >
                 NO

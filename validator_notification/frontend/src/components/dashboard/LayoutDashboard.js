@@ -84,7 +84,7 @@ class LayoutDashboard extends Component {
               </div>
               <hr></hr>
               <h3>Total</h3>
-              <TotalTable notifications={this.props.individualNotifications} />
+              <TotalTable notifications={this.props.individualNotifications}/>
             </div>
           ) : (
               <div className="container">

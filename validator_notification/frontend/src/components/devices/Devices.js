@@ -41,7 +41,7 @@ export class Devices extends Component {
                         device.id,
                         device.name
                       )}
-                      className="btn btn-danger btn-sm"
+                      className="btn btn-delete btn-sm"
                     >
                       Delete
                     </button>

@@ -27,6 +27,7 @@ import StaffRoute from "./common/StaffRoute";
 import { Provider } from "react-redux";
 import store from "../store";
 import { loadUser } from "../actions/auth";
+import LayoutProfile from "./profile/LayoutProfile";
 
 // ALERTS OPTIONS
 const alertOptions = {
@@ -60,6 +61,11 @@ class App extends Component {
                     exact
                     path="/"
                     component={LayoutNotifications}
+                  />
+                  <PrivateRoute
+                    exact
+                    path="/profile-info/profile"
+                    component={LayoutProfile}
                   />
                   <StaffRoute
                     exact
