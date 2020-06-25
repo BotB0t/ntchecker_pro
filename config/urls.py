@@ -38,6 +38,7 @@ urlpatterns = [
     path('auth', include('knox.urls')),
     path('auth/register', accounts_views.Register.as_view()),
     path('auth/login', accounts_views.Login.as_view()),
+    path('auth/update/', accounts_views.Update.as_view()),
     # path('auth/user', accounts_views.User.as_view()),
     path('auth/logout', knox_views.LogoutView.as_view(), name='knox_logout'),
     url(r'^', include(router.urls)),

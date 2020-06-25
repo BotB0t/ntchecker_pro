@@ -38,6 +38,8 @@ export class Alerts extends Component {
       if (message.deleteGeneralNotification) alert.success(message.deleteGeneralNotification);
       if (message.addDeviceFailed) alert.error(message.addDeviceFailed);
       if (message.passwordNotMatch) alert.error(message.passwordNotMatch);
+      if (message.newPasswordMatchOld) alert.error(message.newPasswordMatchOld);
+      if (message.emptyInput) alert.error(message.emptyInput);
       if (message.updateNotification) alert.success(message.updateNotification);
       if (message.addGeneralNotification) alert.success(message.addGeneralNotification);
     }

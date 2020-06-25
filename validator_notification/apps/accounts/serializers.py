@@ -34,6 +34,18 @@ class RegisterSerializer(serializers.ModelSerializer):
             user.save(update_fields=['first_name'])
         return user
 
+class UpdaterUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('username', 'email', 'password', 'first_name')
+    
+    def update(self, validated_data):
+        user = User.objects.update(validated_data['username'])
+        if validated_data.get('username'):
+            user.username = validated_data.get('username', '')
+            user.save(update_fields=['username'])
+        return user
+
 
 class LoginSerializer(serializers.Serializer):
     username = serializers.CharField()
