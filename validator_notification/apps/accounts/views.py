@@ -7,7 +7,7 @@ from knox.models import AuthToken
 from validator_notification.apps.accounts.providers.providers import UserProvider
 from validator_notification.apps.utils.decorators.service_permissions import service_permissions
 from validator_notification.apps.utils.enumerations.permissions_list import permissions_list
-from .serializers import UserSerializer, RegisterSerializer, LoginSerializer
+from .serializers import UserSerializer, RegisterSerializer, LoginSerializer, UpdaterUserSerializer
 
 
 class Register(generics.GenericAPIView):
@@ -25,6 +25,16 @@ class Register(generics.GenericAPIView):
             "user": UserSerializer(user, context=self.get_serializer_context()).data,
             "token": AuthToken.objects.create(user)[1]
         })
+
+class Update(generics.GenericAPIView):
+    serializer_class = UpdaterUserSerializer
+
+    def put(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data, context={'request': request})
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class Login(generics.GenericAPIView):

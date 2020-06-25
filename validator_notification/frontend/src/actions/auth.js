@@ -10,6 +10,8 @@ import {
   LOGOUT_SUCCESS,
   REGISTER_FAIL,
   REGISTER_SUCCESS,
+  UPDATE_PROFILE_SUCCESS,
+  UPDATE_PROFILE_FAIL,
 } from "./types";
 
 // CHECK TOKEN & LOAD USER
@@ -85,6 +87,34 @@ export const register = ({ username, password, email }) => (dispatch) => {
       dispatch(returnErrors(err.response.data, err.response.status));
       dispatch({
         type: REGISTER_FAIL,
+      });
+    });
+};
+
+// UPDATE USER
+export const update = ({ username, password, email, first_name}) => (dispatch) => {
+  // Headers
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+
+  // Request Body
+  const body = JSON.stringify({ username, email, password, first_name });
+
+  axios
+    .put("/auth/update/", body, config)
+    .then((res) => {
+      dispatch({
+        type: UPDATE_PROFILE_SUCCESS,
+        payload: res.data,
+      });
+    })
+    .catch((err) => {
+      dispatch(returnErrors(err.response.data, err.response.status));
+      dispatch({
+        type: UPDATE_PROFILE_FAIL,
       });
     });
 };
