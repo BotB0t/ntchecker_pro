@@ -44,11 +44,17 @@ set the environment variable accordingly `NT_ENV=itg|dev`):
     For django to load them at start, set the environment variable `export DJANGO_READ_DOT_ENV_FILE=true`
     - Set the environment variable `export DJANGO_SETTINGS_MODULE=config.settings.local`
     - `python manage.py runserver 0.0.0.0:8000`
+    
+    In summary you should execute the following lines:
+    ```
+    export DJANGO_READ_DOT_ENV_FILE=true
+    export DJANGO_SETTINGS_MODULE=config.settings.local
+    python manage.py runserver 0.0.0.0:8000
+    ```
 
 
-### PR's Rules
-
-# BACK & FRONT
+# PR's Rules
+### BACK & FRONT
     • Todas se suben a la rama dev
     • El título de la PR tiene que tener un formato 'git commit'. Es decir, todo en minúsculas, comenzando con feat/ fix/ feature/ refactor... + (FEATURE) + : descripción corta. Tener en cuenta que tras cerrar la PR, es el mensaje de commit que queda en el histórico. 😉
     • En la descripción de la PR. Hay que incluir brevemente los motivos por los cuales se ha optado por esa implementación en concreto. Sobretodo en los casos más complejos (si es suficiente con el título de la PR, perfecto).
