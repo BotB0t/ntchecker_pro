@@ -47,10 +47,10 @@ class LayoutDashboard extends Component {
     getIndividualNotifications: PropTypes.func.isRequired,
   };
 
-  componentWillMount() {
+  /*componentWillMount() {
     this.props.individualNotifications = [];
     return { };
-  }
+  }*/
 
   componentDidMount() {
     this.props.getIndividualNotifications({
@@ -84,7 +84,7 @@ class LayoutDashboard extends Component {
               </div>
               <hr></hr>
               <h3>Total</h3>
-              <TotalTable notifications={this.props.individualNotifications} />
+              <TotalTable notifications={this.props.individualNotifications}/>
             </div>
           ) : (
               <div className="container">

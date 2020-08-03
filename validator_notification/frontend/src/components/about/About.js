@@ -24,13 +24,13 @@ export class About extends Component {
                       </a>
                     </li>
                     <li>
-                      Tlf.{" "}
+                      Tlf.&nbsp;
                       <a className="links" href="tel:683482573" target="_blank">
                         683 48 25 73
                       </a>
                     </li>
                     <li>
-                      Ext.{" "}
+                      Ext.&nbsp;
                       <a className="links" href="tel:28511" target="_blank">
                         28511
                       </a>
